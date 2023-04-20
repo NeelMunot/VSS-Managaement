@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
 
 class MyForm extends StatefulWidget{
   @override
@@ -9,27 +10,28 @@ class MyForm extends StatefulWidget{
   }
 }
 
-class MyApp extends StatefulWidget {
-@override
-_MyAppState createState() => _MyAppState();
-}
+// class MyApp extends StatefulWidget {
+// @override
+// _MyAppState createState() => _MyAppState();
+// }
 
-class _MyAppState extends State<MyApp> {
-final _form = GlobalKey<FormState>();
-String title ="";
-void writeData() async {
-	_form.currentState.save();
-  var url = "https://vss-application-default-rtdb.firebaseio.com/"+"data.json";
-  try {
-	final response = await http.post(
-		Uri.parse(url),
-		body: json.encode({"Name": title}),
-	);
-	} catch (error) {
-	throw error;
-	}
-}
-
+// class _MyAppState extends State<MyApp> {
+// final _form = GlobalKey<FormState>();
+// String title ="";
+// void writeData() async {
+// 	_form.currentState.save();
+//   var url = "https://vss-application-default-rtdb.firebaseio.com/"+"data.json";
+//   try {
+// 	final response = await http.post(
+// 		Uri.parse(url),
+// 		body: json.encode({"Name": title}),
+// 	);
+// 	} catch (error) {
+// 	throw error;
+// 	}
+// }
+// }
+DatabaseReference ref = FirebaseDatabase.instance.ref();
 
 class MyFormState extends State<MyForm>{
   @override
@@ -48,9 +50,7 @@ child:SingleChildScrollView(
               TextFormField(
                 decoration: InputDecoration(
                   labelText: "Name",
-                  onSaved: (value) {
-					          title = value;
-				          },
+                  
                   hintText: "Enter Your Name",
                     border:OutlineInputBorder(
               borderRadius: BorderRadius.circular(1.0)
@@ -217,6 +217,7 @@ child:SingleChildScrollView(
                         borderRadius: BorderRadius.circular(1.0)
                     )
                 ),
+                
                 validator: (value){
                   if(value==null|| value.isEmpty){
                     return "please enter HSC marks ";
@@ -231,7 +232,17 @@ child:SingleChildScrollView(
                 height:25,
               ),
 
-ElevatedButton(onPressed: writeData,
+              ElevatedButton(onPressed:  () async{
+                DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
+
+                await ref.set({
+                  "name": "John",
+                  "age": 18,
+                  "address": {
+                    "line1": "100 Mountain View"
+                  }
+});
+},
     child:Text("Submit"),
     style: TextButton.styleFrom(minimumSize: Size(250,40)),
 
