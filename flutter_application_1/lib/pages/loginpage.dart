@@ -106,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       children: [
                         Text("New to this app?"),
+                        
                         TextButton(
                             onPressed: () {
                               Navigator.push(
