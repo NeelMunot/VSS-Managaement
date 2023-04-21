@@ -269,15 +269,15 @@ child:SingleChildScrollView(
                 DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
 
                 await ref.set({
-                  "name": nameController,
-                  "Phone Number": phoneController,
-                  "Email": emailController,
-                  "password":passwordController,
-                  "Course":courseController,
-                  "College Name":collegenController,
-                  "HSC Marks":collegemController,
-                  "SSC Marks":schoolmController,
-                  "School Name":schoolnController
+                  "name": nameController.text.trim(),
+                  "Phone Number": phoneController.text.trim(),
+                  "Email": emailController.text.trim(),
+                  "password":passwordController.text.trim(),
+                  "Course":courseController.text.trim(),
+                  "College Name":collegenController.text.trim(),
+                  "HSC Marks":collegemController.text.trim(),
+                  "SSC Marks":schoolmController.text.trim(),
+                  "School Name":schoolnController.text.trim()
                   });
                   },
                 child:Text("Submit"),
