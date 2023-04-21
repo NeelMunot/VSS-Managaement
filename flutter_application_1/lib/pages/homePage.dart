@@ -32,16 +32,21 @@ class MyWidget extends StatelessWidget {
       
       body: Column(
         children: [
+          
           Image.asset("assets/images/Hostel.jpg"),
           // Padding(padding: Padding.top(20)),
-          Text("          "),
+          SizedBox(
+                height:30,
+              ),
           Text("Welcome ",textScaleFactor: 3,textAlign: TextAlign.center, style: TextStyle(color: Color.fromARGB(199, 9, 141, 141),fontSize: 20),),
-          Text("          "),
+          SizedBox(
+                height:30,
+              ),
 
           Text("Vidyarthi Shayyak Samiti's Digital Portal ",textScaleFactor: 2,textAlign: TextAlign.center, style: TextStyle(color: Color.fromARGB(199, 9, 141, 141),fontSize: 20),),
-          Text("          "),
-          Text("          "),
-          Text("          "),
+          SizedBox(
+                height:60,
+              ),
           Image.asset("assets/images/Hostel2.jpg"),
         ]
         ),
