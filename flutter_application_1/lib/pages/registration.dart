@@ -34,6 +34,30 @@ class MyForm extends StatefulWidget{
 DatabaseReference ref = FirebaseDatabase.instance.ref();
 
 class MyFormState extends State<MyForm>{
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final courseController = TextEditingController();
+  final schoolnController = TextEditingController();
+  final schoolmController = TextEditingController();
+  final collegenController = TextEditingController();
+  final collegemController = TextEditingController();
+
+  @override
+  void dispose(){
+    nameController.dispose();
+    phoneController.dispose();
+    emailController.dispose();
+    courseController.dispose();
+    passwordController.dispose();
+    schoolnController.dispose();
+    schoolmController.dispose();
+    collegenController.dispose();
+    collegemController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build (BuildContext context){
     return Scaffold(
@@ -48,6 +72,7 @@ child:SingleChildScrollView(
             children:<Widget> [
 
               TextFormField(
+                controller: nameController,
                 decoration: InputDecoration(
                   labelText: "Name",
                   
@@ -68,6 +93,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: phoneController,
                 decoration: InputDecoration(
                     labelText: "Phone Number",
                     hintText: "Enter Your Phone number",
@@ -90,6 +116,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: emailController,
                 decoration: InputDecoration(
                     labelText: "Email address",
                     hintText: "Enter Your email address",
@@ -110,6 +137,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: passwordController,
                 decoration: InputDecoration(
                     labelText: " Password",
                     hintText: "Create new password",
@@ -132,6 +160,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: courseController,
                 decoration: InputDecoration(
                     labelText: " current course",
                     hintText: "Enter Your current course",
@@ -151,6 +180,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: schoolnController,
                 decoration: InputDecoration(
                     labelText: " School Name",
                     hintText: "Enter Your  School Name",
@@ -170,6 +200,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: collegenController,
                 decoration: InputDecoration(
                     labelText: " College Name",
                     hintText: "Enter Your  College Name",
@@ -189,6 +220,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: schoolmController,
                 decoration: InputDecoration(
                     labelText: " SSC Marks",
                     hintText: "Enter Your  SSC Marks",
@@ -210,6 +242,7 @@ child:SingleChildScrollView(
               ),
 
               TextFormField(
+                controller: collegemController,
                 decoration: InputDecoration(
                     labelText: " HSC Marks",
                     hintText: "Enter Your  HSC Marks",
@@ -236,15 +269,19 @@ child:SingleChildScrollView(
                 DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
 
                 await ref.set({
-                  "name": "John",
-                  "age": 18,
-                  "address": {
-                    "line1": "100 Mountain View"
-                  }
-});
-},
-    child:Text("Submit"),
-    style: TextButton.styleFrom(minimumSize: Size(250,40)),
+                  "name": nameController,
+                  "Phone Number": phoneController,
+                  "Email": emailController,
+                  "password":passwordController,
+                  "Course":courseController,
+                  "College Name":collegenController,
+                  "HSC Marks":collegemController,
+                  "SSC Marks":schoolmController,
+                  "School Name":schoolnController
+                  });
+                  },
+                child:Text("Submit"),
+                style: TextButton.styleFrom(minimumSize: Size(250,40)),
 
 ),
 
