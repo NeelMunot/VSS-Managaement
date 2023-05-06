@@ -1,16 +1,17 @@
 import 'dart:async';
-import 'package:email_validator/email_validator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/homePage.dart';
 import 'package:flutter_application_1/pages/registration.dart';
+import 'package:flutter_application_1/Backend.dart';
 
 class LoginPage extends StatefulWidget {
+  
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
+
 
 class _LoginPageState extends State<LoginPage> {
 TextEditingController GRN_NOcontroller =TextEditingController();
@@ -19,54 +20,41 @@ TextEditingController passwordcontroller =TextEditingController();
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final ref = FirebaseDatabase.instance.ref();
 
-
 void login() async{
 
-    // basic operations
-  // print("doing this 1st");
-  // final query=ref.child("users").orderByChild("Course").equalTo("qq");
-  //     await query.onValue.first.then((event) {
-  //     String dats = event.snapshot.value.toString();
-  //      print("doing this 2nd");
-  //      print(dats);
-  //     });
-
-
-  String GRN=GRN_NOcontroller.text.trim();
+  String Grn_No=GRN_NOcontroller.text.trim();
   String PWD=passwordcontroller.text.trim();
-  String paths="users/"+GRN+"/Email";
-    String email="";
-    if(EmailValidator.validate(GRN))
-    {
-      UserCredential usercredential = await _auth.signInWithEmailAndPassword(email: GRN, password: PWD);
-      print("done with email");
-    }
-    else if(GRN=="")
-    {
-      print("NULL userid");
-    }
-    else 
-    {
-      await ref.child(paths).onValue.first.then((event) {
-      email = event.snapshot.value.toString();
-      });
-      print("email is "+email);
-      UserCredential usercredential = await _auth.signInWithEmailAndPassword(email: email, password: PWD);
-      print("Done with GRN");
-      print("SIGN iN Done");
-    }
-
-
-
-bool isverified=false;
-isverified=_auth.currentUser!.emailVerified;
-print("verification status=");
-print(isverified);
-if(!isverified)
+  String email="";
+  String userid="";
+if(GRN.validateGrn(Grn_No))
 {
-  User? user = _auth.currentUser;
-  user?.sendEmailVerification();
+    await UserData.checkdata(Grn_No);
+    Map<String,String> data=UserData.data;
+
+    if(data.isNotEmpty)
+    {
+    email= data["Email"].toString();
+    print(email);
+    //_auth.signInWithEmailAndPassword(email: email, password: PWD);
+    //make a verification page popup
+    }
+   else {
+    print("No data found");
+    GRN_NOcontroller.clear();
+    passwordcontroller.clear();
+      }
+      
 }
+else{
+    print("Invalid GRN Id");
+    GRN_NOcontroller.clear();
+    passwordcontroller.clear();
+    }
+
+
+
+
+
 
 
 }
@@ -154,12 +142,13 @@ if(!isverified)
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        //login();
+                        login();
                         //print(uid);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyWidget()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => MyWidget()),
+                        // );
+                        Navigator.pushNamed(context,"/home");
                       },
                       child: Text("Login"),
                       style: TextButton.styleFrom(minimumSize: Size(250, 40)),

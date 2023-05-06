@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:firebase_admin/firebase_admin.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter_application_1/Backend.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -54,6 +55,7 @@ class MyFormState extends State<MyForm>{
   final CodeController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref();
 
   @override
   void dispose(){
@@ -122,27 +124,6 @@ child:SingleChildScrollView(
                   else if(value.length<10 || value.length<10){
                     return "Enter valid number";
                   }
-                  return null;
-                },
-              ),
-              SizedBox(
-                height:25,
-              ),
-
-              TextFormField(
-                controller: GRN_NOController,
-                decoration: InputDecoration(
-                    labelText: "GRN_NO ",
-                    hintText: "Enter Your GRN_NO ",
-                    border:OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.0)
-                    )
-                ),
-                validator: (value){
-                  if(value==null|| value.isEmpty){
-                    return "please enter GRN_NO ";
-                  }
-
                   return null;
                 },
               ),
@@ -321,23 +302,25 @@ child:SingleChildScrollView(
 
               ElevatedButton(onPressed:  () async{
 
-                String Grn_No=GRN_NOController.text.trim();
                 String Email=EmailController.text.trim();
+                int User_Count=-1;
+                await ref.child("User_Count").onValue.first.then((event) {
+                User_Count = int.parse(event.snapshot.value.toString());
+                });
+                String Grn_No=GRN.generateGrn("M",User_Count);
                 String password=passwordController.text.trim();
 
 
-                
-                  UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: Email,password: password);
-                //FirebaseAuth.instance.createUserWithEmailAndPassword(email: GRN_NO+"@samiti.com", password: password);
-                print("Account created");
+                if(EmailValidator.validate(Email))
+                {
+                  try{
+                UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: Email,password: password);
+                await ref.child("User_count").set(User_Count+1);
                 String? uid=userCredential.user?.uid;
-                String paths="users/"+Grn_No;
-                print(paths);
-                DatabaseReference ref = FirebaseDatabase.instance.ref();
-                await ref.child(paths).set({
+                await ref.child("users/$Grn_No").set({
                   "name": nameController.text.trim(),
                   "Phone Number": phoneController.text.trim(),
-                  "GRN": GRN_NOController.text.trim(),
+                  "GRN": Grn_No,
                   "Email": EmailController.text.trim(),
                   "Code": CodeController.text.trim(),
                   "password":passwordController.text.trim(),
@@ -347,6 +330,32 @@ child:SingleChildScrollView(
                   "SSC Marks":schoolmController.text.trim(),
                   "School Name":schoolnController.text.trim()
                    });
+                   print("Your GRN IS "+Grn_No);
+                      }
+                  on FirebaseAuthException catch (e) {
+                    if (e.code == 'weak-password') {
+                          print("Password is too weak");
+                       } 
+                    else if (e.code == 'email-already-in-use') {
+                          print("Email is already in use");
+                      } 
+                    else {
+                         print("database error \n $e");
+                       }
+
+                  }
+                  catch (e) {
+                    print("internal error try again!!\n");
+                    print(e);
+                    EmailController.clear();
+
+                    }
+                  }
+                  else{
+                    print("Invalid Email Id");
+                    EmailController.clear();
+                  }
+
                   },
                 child:Text("Submit"),
                 style: TextButton.styleFrom(minimumSize: Size(250,40)),

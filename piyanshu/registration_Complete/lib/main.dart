@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/pages/loginpage.dart';
+import 'package:flutter_application_1/pages/homePage.dart';
 
-import 'pages/homePage.dart';
 import 'pages/registration.dart';
 
 void main() async {
@@ -20,9 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        // "/": (context) => MyWidget(),
-        // "/": (context) => MyForm(),
         "/": (context) => LoginPage(),
+        "/home": (context) => MyWidget(),
+        "/login": (context) => LoginPage(),
+        "/register": (context) => MyForm(),
       },
     );
   }

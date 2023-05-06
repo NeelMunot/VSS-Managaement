@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'loginpage.dart';
+import 'Backend.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
   const MyHeaderDrawer({super.key});
@@ -9,6 +9,7 @@ class MyHeaderDrawer extends StatefulWidget {
 }
 
 class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
+  Map<String,String> data=UserData.data;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,8 +31,8 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
                 )
             ),
           ),
-          Text("Harshal Korade", style: TextStyle(color: Colors.white,fontSize: 20),),
-          Text("harshal2.korade@gmail.com", style: TextStyle(color: Colors.grey[200], fontSize: 14),),
+          Text(data["name"].toString(), style: TextStyle(color: Colors.white,fontSize: 20),),
+          Text(data["Email"].toString(), style: TextStyle(color: Colors.grey[200], fontSize: 14),),
       ]),
     );
   }
