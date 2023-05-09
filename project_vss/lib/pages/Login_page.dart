@@ -43,19 +43,24 @@ if(GRN.validateGrn(Grn_No))
     email= data["Email"].toString();
     print(email);
     _auth.signInWithEmailAndPassword(email: email, password: PWD);
-    //make a verification page popup
+    //verification page popup
+    if(_auth.currentUser?.emailVerified==false)
+    {
+      await _auth.currentUser?.sendEmailVerification();
+      popups.showMessage(context, "User is not verified\n A verification link is sent to verify");
+    }
     }
    else {
-    print("No data found");
     grnController.clear();
+    popups.showMessage(context, "No user is found with GRN No. '$Grn_No' ");
     passwordController.clear();
       }
       
 }
 else{
-    print("Invalid GRN Id");
     grnController.clear();
     passwordController.clear();
+    popups.showMessage(context,"Invalid GRN No. Provided");
     }
 
 

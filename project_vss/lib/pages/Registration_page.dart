@@ -214,7 +214,7 @@ class _RegistrationState extends State<Registration> {
                   "Batch":"",
                   "SSC Marks":tenthController.text.trim(),
                    });
-                   print("Your GRN IS "+Grn_No);
+                   popups.showMessage(context, "GRN Number alloted to you is \n '$Grn_No' \n Use this for Logging in your account. ");
                       }
                   on FirebaseAuthException catch (e) {
                     if (e.code == 'weak-password') {

@@ -3,10 +3,14 @@ import 'dart:ffi';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/Login_page.dart';
+import 'main.dart';
 import 'package:intl/intl.dart';
 
 final ref = FirebaseDatabase.instance.ref();
 final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
 class GRN
 {
@@ -24,6 +28,52 @@ static bool validateGrn(String GRN)
   return Grn_format.hasMatch(GRN);
 }
 
+}
+
+
+class popups
+{
+static void showMessage(BuildContext context,String Message) {
+  Icon icn=Icon(Icons.close);
+  if(Message.contains("Loggin in"))
+  {
+      icn==Icon(Icons.login);
+  }
+  if(Message.contains("Not Verified"))
+  {
+    icn=Icon(Icons.verified_user);
+  }
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Message"),
+        content: Text(Message),
+        actions: [
+          IconButton(
+            icon: icn,
+            onPressed: (){
+                            
+              if(Message.contains("Logging in"))
+              {Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+              }
+              if(Message.contains("not Verified"))
+              {Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+              }
+              else{
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 }
 
