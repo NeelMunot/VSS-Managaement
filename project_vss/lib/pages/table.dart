@@ -16,10 +16,18 @@ class MyTable extends StatefulWidget {
 
 class _MyTableState extends State<MyTable> {
   
-  //Map<String,String> batch =Batches.get_batches("B1");
+  // List<String> grnlist=[];
+  // void getbatch() async
+  // {
+  // await Batches.get_batches("B1");
+  // Map<String,String> batch=Batches.cur_batch;
+  // grnlist=batch.values.toList();
 
+  // }
+  
   //GRN Number
-  List<int> numbers = [1, 2, 3, 4, 5, 6, 7];
+  
+  List<int> numbers = [11, 2, 3, 4, 5, 6, 7];
   //name
   List<String> names = ['', '', '', '', '', '', ''];
   //checkboxes

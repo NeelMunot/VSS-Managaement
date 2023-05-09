@@ -1,30 +1,57 @@
 import 'package:flutter/material.dart';
 
-class Inputfield extends StatefulWidget {
+class Inputfield extends StatelessWidget {
   final String hintText;
-  final String labelText;
   final TextEditingController controller;
-  const Inputfield ({Key? key, required this.hintText, required this.labelText, required this.controller}) : super(key: key);
+  final String labelText;
+  final bool obscureText;
 
-  @override
-  State<Inputfield> createState() => _InputfieldState();
-}
+  const Inputfield({
+    Key? key,
+    required this.hintText,
+    required this.labelText,
+    required this.controller,
+    this.obscureText = false,
+  }) : super(key: key);
 
-class _InputfieldState extends State<Inputfield> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
+      obscureText: obscureText,
       decoration: InputDecoration(
         fillColor: Colors.grey.shade100,
-        hintText:widget.hintText,
-        labelText: widget.labelText,
-        border:OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2),
-        )
+        hintText: hintText,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(2),),
       ),
+    );
+  }
+}
 
-      /*Add validatory conditions here*/
+class Securefield extends StatelessWidget {
+  final String hintText;
+  final TextEditingController controller;
+  final String labelText;
+  final bool obscureText;
 
+  const Securefield({
+    Key? key,
+    required this.hintText,
+    required this.labelText,
+    required this.controller,
+    this.obscureText = true,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        fillColor: Colors.grey.shade100,
+        hintText: hintText,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(2),),
+      ),
     );
   }
 }

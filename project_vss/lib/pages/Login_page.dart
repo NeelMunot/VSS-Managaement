@@ -20,15 +20,16 @@ void login() async{
 
 
 
-
-
 //batch list for table
-await Batches.get_batches("B1");
-Map<String,String> batch=Batches.batch;
-  print(batch);
+// await Batches.get_batches("B1");
+// Map<String,String> batch=Batches.cur_batch;
+//   print(batch);
+
 
   String Grn_No=grnController.text.trim();
   String PWD=passwordController.text.trim();
+  print(Grn_No);
+  print(PWD);
   String email="";
   String userid="";
   print(Grn_No);
@@ -81,24 +82,9 @@ else{
                 height: 50,
               ),
 
+              Inputfield(hintText: "Enter GRN NO.", labelText: "GRN NO." ,controller:grnController,/*call validatory conditions here*/),
 
-              //Inputfield(hintText: "Enter GRN NO.", labelText: "GRN NO." ,controller:grnController ,/*call validatory conditions here*/),
-              TextFormField(
-                controller: grnController,
-                decoration: InputDecoration(
-                    labelText: "grn ",
-                    hintText: "Enter Your grn ",
-                    border:OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.0)
-                    )
-                ),
-              ),
-
-              SizedBox(
-               height: 20,
-              ),
-
-              Inputfield(hintText: "Enter the password ", labelText: "password" ,controller:passwordController,/*call validatory conditions here*/),
+              Securefield(hintText: "Enter the password ", labelText: "password" ,controller:passwordController,/*call validatory conditions here*/),
 
               SizedBox(
                 height: 15,

@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
+
 final ref = FirebaseDatabase.instance.ref();
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -52,6 +54,7 @@ class UserData
   else
     {
     data={};
+    Cur_Grn="";
     }
 
     });
@@ -61,7 +64,7 @@ class UserData
 
 class Batches
 {
-  static Map<String,String> batch={};
+  static Map<String,String> cur_batch={};
 
   static set_batch(String Grn,String Batch) async
   {
@@ -74,8 +77,8 @@ class Batches
   await ref.child("Counters/$Batch").set(Batch_count+1);
   }
 
-  static get_batches(String Batch) async
-  {   batch={};
+   static get_batches(String Batch) async
+  {   cur_batch={};
 
       Query query=ref.child("Batches/$Batch");
       await query.onValue.first.then((event) {
@@ -85,21 +88,25 @@ class Batches
         {
         var dataset = snapshot.value;
         dataset as Map<Object?, Object?>;
-        batch = dataset.map( (key, value) => MapEntry(value.toString(),key.toString()) );
+        cur_batch = dataset.map( (key, value) => MapEntry(value.toString(),key.toString()) );
         }
         });
   }
 
 }
 
-// class Attendance
+// class Attendance extends UserData
 // {
 //   //will receive list of Grn nos.
-//   static markAttendance(List<String> Grns)
+//   static markAttendance(String Batch,List<String> Grns) async
 //   {
-//     for(String i in Grns)
-//     {
-      
-//     }
+//     String ddmm=DateTime.now().day.toString()+"-"+ DateTime.now().month.toString();
+//     String yy=DateTime.now().year.toString();
+
+//     await ref.child("Attendance/$yy/$ddmm/$Batch").set(Grns);
+//   }
+//   static get_attendance(String cur_month)
+//   {
+
 //   }
 // }
