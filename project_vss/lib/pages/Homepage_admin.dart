@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 //import '../my_header_drawer.dart';
 
-class MyWidgeta extends StatelessWidget {
-  const MyWidgeta({super.key});
+class Homepage_admin extends StatelessWidget {
+  const Homepage_admin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class MyWidgeta extends StatelessWidget {
       appBar: AppBar
         (
         backgroundColor: Colors.blue,
-        title: Text("Vidyarthi Shayyak Samiti"),
+        title: Text("Admins Vidyarthi Shayyak Samiti"),
       ),
       drawer: Drawer(
           child: SingleChildScrollView(

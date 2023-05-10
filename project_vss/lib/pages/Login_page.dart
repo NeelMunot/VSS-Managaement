@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/Homepage_admin.dart';
+import 'package:flutter_application_1/pages/Homepage_user.dart';
 import 'package:flutter_application_1/pages/Registration_page.dart';
 import 'package:flutter_application_1/widgets/input_field.dart';
 import 'package:flutter_application_1/Backend.dart';
@@ -42,12 +44,37 @@ if(GRN.validateGrn(Grn_No))
     {
     email= data["Email"].toString();
     print(email);
-    _auth.signInWithEmailAndPassword(email: email, password: PWD);
-    //verification page popup
-    if(_auth.currentUser?.emailVerified==false)
+    try{
+      _auth.signInWithEmailAndPassword(email: email, password: PWD);
+      if(_auth.currentUser?.emailVerified==false)
+        {
+          await _auth.currentUser?.sendEmailVerification();
+          popups.showMessage(context, "User is not verified\n A verification link is sent to verify");
+        }
+      else
+      {       if(data['role']=="Teacher")
+              {
+              Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => Homepage_admin()),
+              );
+              }
+              else{
+              Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => Homepage_user()),
+              );                
+              }
+      }
+    } on FirebaseAuthException catch (e)
     {
-      await _auth.currentUser?.sendEmailVerification();
-      popups.showMessage(context, "User is not verified\n A verification link is sent to verify");
+      if(e.code=='wrong-password')
+      {
+        popups.showMessage(context,"Invalid Password !!");
+      }
+      else
+      {
+        popups.showMessage(context,e.message.toString());
+        
+      }
     }
     }
    else {
