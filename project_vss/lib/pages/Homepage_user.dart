@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/Login_page.dart';
 
 //import '../my_header_drawer.dart';
 
@@ -8,6 +9,7 @@ class Homepage_user extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text("Students Vidyarthi Shayyak Samiti"),
@@ -431,30 +433,35 @@ class Homepage_user extends StatelessWidget {
   Widget menuItem() {
     return Material(
         child: InkWell(
-      onTap: () {},
-      child: Padding(
-        padding: EdgeInsets.all(80.0),
-        child: Row(children: [
-          Expanded(
-            child: Icon(
-              Icons.dashboard_outlined,
-              size: 20,
-              color: Colors.black,
-            ),
+          onTap: (){},
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Row(
+                children: [
+                  Expanded(
+                    child: Icon(
+                      Icons.dashboard_outlined,
+                      size: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Text(
+                      "Dashboard",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+
+                      ),
+                    ),
+                  ),
+
+                ]),
           ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              "Dashboard",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ]),
-      ),
-    ));
+        )
+
+    );
   }
 }
 

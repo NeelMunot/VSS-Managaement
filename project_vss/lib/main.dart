@@ -30,10 +30,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
         "/": (context) => Homepage_user(),
 
-        //"/Login":(context)=>LoginPage(),
+        //// "/Login":(context)=>LoginPage(),
       },
     );
   }
