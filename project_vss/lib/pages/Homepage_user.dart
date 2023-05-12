@@ -406,9 +406,9 @@ class Homepage_user extends StatelessWidget {
             height: 20,
           ),
 
-          Image.asset("assets/images/line2.png"),
-          Image.asset("assets/images/download.png"),
-          Image.asset("assets/images/line2.png"),
+          // Image.asset("assets/images/line2.png"),
+          // Image.asset("assets/images/download.png"),
+          // Image.asset("assets/images/line2.png"),
           SizedBox(
             height: 60,
           ),
