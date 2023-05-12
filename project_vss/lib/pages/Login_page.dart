@@ -52,17 +52,27 @@ if(GRN.validateGrn(Grn_No))
           popups.showMessage(context, "User is not verified\n A verification link is sent to verify");
         }
       else
-      {       if(data['role']=="Teacher")
+      {       
+        Query queryt=ref.child("Teachers/$Grn_No");
+        await queryt.onValue.first.then((event) {
+        var snapshot = event.snapshot;       
+              
+              if(snapshot.value!=null)
               {
               Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => Homepage_admin()),
               );
+
               }
+
               else{
               Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => Homepage_user()),
-              );                
+              );
+
               }
+
+              });
       }
     } on FirebaseAuthException catch (e)
     {

@@ -111,6 +111,13 @@ class UserData
     });
   }
 
+  // static bool isteacher() async
+  // {
+  //     Query query=ref.child("users/$Grn_No/");
+  //     await query.onValue.first.then((event) {
+  //     var snapshot = event.snapshot;});
+  // }
+
 }
 
 class Batches
