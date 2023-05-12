@@ -77,15 +77,16 @@ static void showMessage(BuildContext context,String Message) {
 
 }
 
+
 class UserData
 {
 
-  static Map<String,String> data={};
+  static Map<String,String> User_data={};
   static String Cur_Grn="";
 
   static Future<void>? checkdata(String Grn_No) async
   {
-  data={};
+  User_data={};
   Query query=ref.child("users/$Grn_No/");
   await query.onValue.first.then((event) {
   var snapshot = event.snapshot;
@@ -94,7 +95,7 @@ class UserData
     {
     var dataset = snapshot.value;
     dataset as Map<Object?, Object?>;
-    data = dataset.map((key, value) =>
+    User_data = dataset.map((key, value) =>
   MapEntry(key.toString(), value.toString())
     );
     print(dataset.runtimeType); 
@@ -103,7 +104,7 @@ class UserData
 
   else
     {
-    data={};
+    User_data={};
     Cur_Grn="";
     }
 
@@ -120,10 +121,14 @@ class Batches
   {
   await ref.child("Users/$Grn").set({"Batch":Batch});
   int Batch_count=-1;
+  String name="";
       await ref.child("Counters/$Batch").onValue.first.then((event) {
            Batch_count = int.parse(event.snapshot.value.toString());
            });
-  await ref.child("Batches/$Batch").set({Grn:Batch_count});
+      await ref.child("users/$Grn/name").onValue.first.then((event) {
+           name = event.snapshot.value.toString();
+           });
+  await ref.child("Batches/$Batch").set({Grn:name});
   await ref.child("Counters/$Batch").set(Batch_count+1);
   }
 
@@ -145,18 +150,38 @@ class Batches
 
 }
 
-// class Attendance extends UserData
-// {
-//   //will receive list of Grn nos.
-//   static markAttendance(String Batch,List<String> Grns) async
-//   {
-//     String ddmm=DateTime.now().day.toString()+"-"+ DateTime.now().month.toString();
-//     String yy=DateTime.now().year.toString();
+class Attendance extends UserData
+{
+  static List<String> Total_days=[];
+  static List<String> Absent_days=[];
 
-//     await ref.child("Attendance/$yy/$ddmm/$Batch").set(Grns);
-//   }
-//   static get_attendance(String cur_month)
-//   {
+  //will receive list of Grn nos.
+  static markAttendance(String Batch,List<String> Grns) async
+  {
+    String cur_date = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
-//   }
-// }
+    await ref.child("Attendance/$Batch/cur_date").set(Grns);
+  }
+  
+  static get_attendance() async{
+
+    await ref.child("Attendance/${UserData.User_data["Batch"]} ").onValue.first.then((event) {
+           var dataset = event.snapshot.value;
+            dataset as Map<Object?, Object?>;
+            Map<String,String> data = dataset.map(
+              (key, value) => MapEntry(key.toString(), value.toString())
+            );
+            Total_days=data.keys.toList();
+            for (var item in data.entries)
+            {
+              String date=item.key;
+              if(item.value.contains(UserData.Cur_Grn)==false)
+              {
+                Absent_days.add(date);
+              }
+
+            }
+           });
+
+  }
+}
