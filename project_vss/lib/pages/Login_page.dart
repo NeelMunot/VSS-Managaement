@@ -55,9 +55,9 @@ if(GRN.validateGrn(Grn_No))
       {       
         Query queryt=ref.child("Teachers/$Grn_No");
         await queryt.onValue.first.then((event) {
-        var snapshot = event.snapshot;       
+        var snapshotT = event.snapshot;       
               
-              if(snapshot.value!=null)
+              if(snapshotT.value!=null)
               {
               Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => Homepage_admin()),
