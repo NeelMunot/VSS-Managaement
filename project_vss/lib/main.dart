@@ -11,7 +11,7 @@ import 'package:flutter_application_1/pages/table.dart';
 
 //import 'package:flutter_application_1/practice.dart';
 //import 'googleFonts.dart';
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -28,12 +28,11 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      theme:ThemeData(primarySwatch: Colors.blue),
-
+      theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> LoginPage(),
+        "/": (context) => MyTable(),
 
-        "/Login":(context)=>LoginPage(),
+        // "/Login":(context)=>LoginPage(),
       },
     );
   }
