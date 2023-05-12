@@ -86,7 +86,7 @@ class UserData
   static Future<void>? checkdata(String Grn_No) async
   {
   data={};
-  Query query=ref.child("users/$Grn_No");
+  Query query=ref.child("users/$Grn_No/");
   await query.onValue.first.then((event) {
   var snapshot = event.snapshot;
 
@@ -138,7 +138,7 @@ class Batches
         {
         var dataset = snapshot.value;
         dataset as Map<Object?, Object?>;
-        cur_batch = dataset.map( (key, value) => MapEntry(value.toString(),key.toString()) );
+        cur_batch = dataset.map( (key, value) => MapEntry(key.toString(), value.toString()));
         }
         });
   }

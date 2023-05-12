@@ -1,4 +1,6 @@
 
+import 'dart:math';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,6 +61,7 @@ class _RegistrationState extends State<Registration> {
                         onChanged:(val){
                           setState(() {
                             var _gender= val;
+                            print(_gender);
                           });
                         }),
                   ),
@@ -71,6 +74,7 @@ class _RegistrationState extends State<Registration> {
                         title: Text(Gender.Female.name), onChanged:(val){
                       setState(() {
                         var _gender= val;
+                        print(_gender);
                       });
                     }),
                   ),
@@ -79,7 +83,7 @@ class _RegistrationState extends State<Registration> {
               ),
       //-----------------------------------------------------------------------
 
-              Inputfield(hintText: "Enter Your Phone Number", labelText: "Phone Number" ,controller:phoneController ,/*call validatory conditions here*/),
+              Inputfield(hintText: "Enter Your Phone Number+$_gender", labelText: "Phone Number" ,controller:phoneController ,/*call validatory conditions here*/),
               SizedBox(height: 15,),
 
               Inputfield(hintText: "Enter Your Email Address", labelText: "Email Address" ,controller:emailController ,/*call validatory conditions here*/),
