@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/table.dart';
 
 //import '../my_header_drawer.dart';
 
@@ -25,9 +28,15 @@ class Homepage_admin extends StatelessWidget {
               onPressed: () {},
               child: Text("Profile",
                   style: TextStyle(color: Colors.blue, fontSize: 18))),
-          ElevatedButton(onPressed: () {}, child: Text("Take Attendence")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MyTable()),
+                );
+              },
+              child: Text("Take Attendence")),
           ElevatedButton(onPressed: () {}, child: Text("View Attendence")),
-          ElevatedButton(onPressed: () {}, child: Text("Log out")),
+          ElevatedButton(onPressed: () => exit(0), child: Text("Log out")),
         ]),
       ))),
       body: SingleChildScrollView(
@@ -318,7 +327,6 @@ class Homepage_admin extends StatelessWidget {
           ),
           Image.asset("assets/images/line2.png"),
 
-          
           SizedBox(
             height: 20,
           ),
