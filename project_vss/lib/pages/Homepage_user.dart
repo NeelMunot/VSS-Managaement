@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/Login_page.dart';
+import 'package:flutter_application_1/pages/table.dart';
 
 //import '../my_header_drawer.dart';
 
@@ -22,12 +25,19 @@ class Homepage_user extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          TextButton(
+          ElevatedButton(
               onPressed: () {},
-              child: Text("Profile",
-                  style: TextStyle(color: Colors.blue, fontSize: 18))),
-          ElevatedButton(onPressed: () {}, child: Text("Attendence")),
-          ElevatedButton(onPressed: () {}, child: Text("Log out")),
+              child: Text(
+                "Profile",
+              )),
+          ElevatedButton(
+              onPressed: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(builder: (context) => MyTable()),
+                // );
+              },
+              child: Text("Attendence")),
+          ElevatedButton(onPressed: () => exit(0), child: Text("Log out")),
         ]),
       ))),
       body: SingleChildScrollView(
@@ -432,35 +442,30 @@ class Homepage_user extends StatelessWidget {
   Widget menuItem() {
     return Material(
         child: InkWell(
-          onTap: (){},
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Row(
-                children: [
-                  Expanded(
-                    child: Icon(
-                      Icons.dashboard_outlined,
-                      size: 20,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Text(
-                      "Dashboard",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-
-                      ),
-                    ),
-                  ),
-
-                ]),
+      onTap: () {},
+      child: Padding(
+        padding: EdgeInsets.all(15.0),
+        child: Row(children: [
+          Expanded(
+            child: Icon(
+              Icons.dashboard_outlined,
+              size: 20,
+              color: Colors.black,
+            ),
           ),
-        )
-
-    );
+          Expanded(
+            flex: 3,
+            child: Text(
+              "Dashboard",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ]),
+      ),
+    ));
   }
 }
 
