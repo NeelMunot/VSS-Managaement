@@ -38,7 +38,7 @@ void login() async{
 if(GRN.validateGrn(Grn_No))
 {
     await UserData.checkdata(Grn_No);
-    Map<String,String> data=UserData.data;
+    Map<String,String> data=UserData.User_data;
     
     if(data.isNotEmpty)
     {

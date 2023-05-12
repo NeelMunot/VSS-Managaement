@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/Login_page.dart';
 import 'package:flutter_application_1/pages/Registration_page.dart';
 import 'package:flutter_application_1/pages/mark_attendance.dart';
+import 'package:flutter_application_1/pages/table.dart';
 // import 'package:flutter_application_1/pages/Registration_page.dart';
 // import 'package:flutter_application_1/pages/table.dart';
 
@@ -34,13 +35,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-<<<<<<< Updated upstream
-        "/": (context) => LoginPage(),
-
-        //// "/Login":(context)=>LoginPage(),
-=======
-       "/" :(context)=> Registration(),
->>>>>>> Stashed changes
+       "/" :(context)=> dispattd(),
       },
     );
   }

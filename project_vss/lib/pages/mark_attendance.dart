@@ -21,11 +21,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<bool> _checkedItems = List.generate(5, (index) => false);
-  var arrN = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
-  var prn = ['1','2','3','4','5'];
+Map<String,String> batch={};
+List<String> arrN=[];
+List<String> prn=[];
+  void getdata()async{
+  await Batches.get_batches("B1");
+  batch=Batches.cur_batch;
+  //print(batch);
+  prn=batch.keys.toList();
+  arrN=batch.values.toList();
+  }
+  //var arrN = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
+  //var prn = ['1','2','3','4','5'];
+    
   @override
   Widget build(BuildContext context) {
+    getdata();
+    print(arrN);
+    print(prn);
+  List<bool> _checkedItems = List.generate(prn.length, (index) => false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Mark The Attendance'),
@@ -33,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: _checkedItems.length,
         itemBuilder: (context, index) {
+          
           return CheckboxListTile(
             title: Text(arrN[index]),
             subtitle: Text(prn[index]),

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/table.dart';
+import 'package:flutter_application_1/pages/mark_attendance.dart';
 
 //import '../my_header_drawer.dart';
 
