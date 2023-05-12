@@ -24,10 +24,11 @@ class Homepage_admin extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          TextButton(
+          ElevatedButton(
               onPressed: () {},
-              child: Text("Profile",
-                  style: TextStyle(color: Colors.blue, fontSize: 18))),
+              child: Text(
+                "Profile",
+              )),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
