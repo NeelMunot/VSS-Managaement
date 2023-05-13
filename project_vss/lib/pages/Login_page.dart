@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/Forgot_pwd.dart';
 import 'package:flutter_application_1/pages/Homepage_admin.dart';
 import 'package:flutter_application_1/pages/Homepage_user.dart';
 import 'package:flutter_application_1/pages/Registration_page.dart';
@@ -136,7 +137,13 @@ else{
               //____________Forgot password______________
               Row(
                 children: [
-                  TextButton(onPressed: (){print("forgot password");},
+                  TextButton(onPressed: (){
+
+              Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => Forgot_pwd()),
+              );
+
+                  },
                       child: Text("Forgot Password ?"))
                 ],
               ),

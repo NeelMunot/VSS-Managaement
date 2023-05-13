@@ -33,9 +33,9 @@ static bool validateGrn(String GRN)
 
 class popups
 {
-static void showMessage(BuildContext context,String Message) {
+static showMessage(BuildContext context,String Message) {
   Icon icn=Icon(Icons.close);
-  if(Message.contains("Loggin in"))
+  if(Message.contains("Logging in"))
   {
       icn==Icon(Icons.login);
   }
@@ -43,6 +43,8 @@ static void showMessage(BuildContext context,String Message) {
   {
     icn=Icon(Icons.verified_user);
   }
+
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -59,7 +61,7 @@ static void showMessage(BuildContext context,String Message) {
               MaterialPageRoute(builder: (context) => LoginPage()),
               );
               }
-              if(Message.contains("not Verified"))
+              else if(Message.contains("not Verified"))
               {Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => LoginPage()),
               );
@@ -110,13 +112,6 @@ class UserData
 
     });
   }
-
-  // static bool isteacher() async
-  // {
-  //     Query query=ref.child("users/$Grn_No/");
-  //     await query.onValue.first.then((event) {
-  //     var snapshot = event.snapshot;});
-  // }
 
 }
 

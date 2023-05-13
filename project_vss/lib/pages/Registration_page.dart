@@ -76,7 +76,7 @@ CheckboxListTile(
 
       //-----------------------------------------------------------------------
 
-              Inputfield(hintText: "Enter Your Phone Number+$_gender", labelText: "Phone Number" ,controller:phoneController ,/*call validatory conditions here*/),
+              Inputfield(hintText: "Enter Your Phone Number", labelText: "Phone Number" ,controller:phoneController ,/*call validatory conditions here*/),
               SizedBox(height: 15,),
 
               Inputfield(hintText: "Enter Your Email Address", labelText: "Email Address" ,controller:emailController ,/*call validatory conditions here*/),
@@ -191,7 +191,7 @@ CheckboxListTile(
                 await ref.child("Counters/User_Count").onValue.first.then((event) {
                 User_Count = int.parse(event.snapshot.value.toString());
                 });
-                String Grn_No=GRN.generateGrn("M",User_Count);
+                String Grn_No=GRN.generateGrn(_selectedGender.name,User_Count);
                 String password=passwordController.text.trim();
 
                 print(password);
@@ -205,6 +205,7 @@ CheckboxListTile(
                   "name": nameController.text.trim(),
                   "Phone Number": phoneController.text.trim(),
                   "GRN": Grn_No,
+                  "Gender": _selectedGender.name,
                   "Email": emailController.text.trim(),
                   "password":passwordController.text.trim(),
                   "HSC Marks":twelthController.text.trim(),
