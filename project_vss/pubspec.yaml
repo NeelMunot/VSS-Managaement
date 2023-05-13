@@ -43,6 +43,7 @@ dependencies:
   firebase_admin: ^0.2.0
  # dropdown_button2: ^1.0.0
   dropdown_button2: ^2.1.0
+  table_calendar: ^3.0.0
 
 dev_dependencies:
   flutter_test:
