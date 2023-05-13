@@ -23,24 +23,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 Map<String,String> batch={};
 List<String> Present=[];
-List<String> arrN=[];
-List<String> prn=[];
+List<String> Name=[];
+List<String> Grn=[];
+String batch_name="";
+  
   void getdata()async{
-  await Batches.get_batches("B1");
+    
+  await ref.child("Teacher/${UserData.Cur_Grn}").onValue.first.then((event) {
+                batch_name = event.snapshot.value.toString();
+            });
+
+  await Batches.get_batches(batch_name);
   batch=Batches.cur_batch;
-  //print(batch);
-  prn=batch.keys.toList();
-  arrN=batch.values.toList();
+  Grn=batch.keys.toList();
+  Name=batch.values.toList();
+
   }
-  //var arrN = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
-  //var prn = ['1','2','3','4','5'];
+  //var Name = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
+  //var Grn = ['1','2','3','4','5'];
     
   @override
   Widget build(BuildContext context) {
     getdata();
-    print(arrN);
-    print(prn);
-  List<bool> _checkedItems = List.generate(prn.length, (index) => false);
+    print(Name);
+    print(Grn);
+  List<bool> _checkedItems = List.generate(Grn.length, (index) => false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Mark The Attendance'),
@@ -50,16 +57,16 @@ List<String> prn=[];
         itemBuilder: (context, index) {
           
           return CheckboxListTile(
-            title: Text(arrN[index]),
-            subtitle: Text(prn[index]),
+            title: Text(Name[index]),
+            subtitle: Text(Grn[index]),
             value: _checkedItems[index],
             onChanged: (value) {
                   setState(() {
                     _checkedItems[index] = value!;
                     if (value) {
-                          Present.add(prn[index]);
+                          Present.add(Grn[index]);
                       } else {
-                        Present.remove(prn[index]);
+                        Present.remove(Grn[index]);
                       }
                   });
             },
