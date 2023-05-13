@@ -115,19 +115,31 @@ class Batches
 {
   static Map<String,String> cur_batch={};
 
-  static set_batch(String Grn,String Batch) async
+  static set_batch(String Grn,String New_Batch) async
   {
-  await ref.child("Users/$Grn").set({"Batch":Batch});
   int Batch_count=-1;
   String name="";
-      await ref.child("Counters/$Batch").onValue.first.then((event) {
+  String old_batch="";
+      await ref.child("Counters/$New_Batch").onValue.first.then((event) {
            Batch_count = int.parse(event.snapshot.value.toString());
            });
       await ref.child("users/$Grn/name").onValue.first.then((event) {
            name = event.snapshot.value.toString();
            });
-  await ref.child("Batches/$Batch").set({Grn:name});
-  await ref.child("Counters/$Batch").set(Batch_count+1);
+      await ref.child("users/$Grn/").onValue.first.then((event) {
+           name = event.snapshot.value.toString();
+           });
+
+  await ref.child("Batches/$New_Batch").set({Grn:name});
+  await ref.child("Counters/$New_Batch").set(Batch_count+1);
+
+ref.child("Batches/").remove().then((_) {
+  print("Note deleted successfully.");
+}).catchError((error) {
+  print("Failed to delete note: $error");
+
+
+  await ref.child("Users/$Grn").set({"Batch":New_Batch});
   }
 
    static get_batches(String Batch) async
