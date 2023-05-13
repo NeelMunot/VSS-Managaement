@@ -34,10 +34,14 @@ class _RegistrationState extends State<Registration> {
   ];
   String? selectedValue;
 
-  Gender? _gender;
+ Gender _selectedGender=Gender.Male;
   @override
+  void initState() {
+     super.initState();
+     _selectedGender = Gender.Male; // Initialize with a default value
+   }
   Widget build(BuildContext context) {
-    var _gender;
+    
     return Scaffold(
         appBar: AppBar(title: Text("Registration Page"),),
       body: SingleChildScrollView(
@@ -50,37 +54,26 @@ class _RegistrationState extends State<Registration> {
               Inputfield(hintText: "Enter Your Full Name", labelText: "Name" ,controller:nameController ,/*call validatory conditions here*/),
               SizedBox(height: 15,),
 
-              //-------------------Radiobutton------------------------------
-              Row(
-                children: [
-                  Expanded(
-                    child: RadioListTile<Gender>(
-                        contentPadding:EdgeInsets.all(0.0),shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),value: Gender.Male, groupValue:_gender,
-                        dense: true,
-                        title:Text(Gender.Male.name),
-                        onChanged:(val){
-                          setState(() {
-                            var _gender= val;
-                            print(_gender);
-                          });
-                        }),
-                  ),
-                  SizedBox(width: 5.0,),
-                  Expanded(
-                    child: RadioListTile<Gender>(
-                        contentPadding:EdgeInsets.all(0.0),
-                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),value: Gender.Female, groupValue:_gender,
-                        dense: true,
-                        title: Text(Gender.Female.name), onChanged:(val){
-                      setState(() {
-                        var _gender= val;
-                        print(_gender);
-                      });
-                    }),
-                  ),
+              //----------------------checkbox for gender--------------
+CheckboxListTile(
+                          title: Text('Male'),
+                          value: _selectedGender == Gender.Male,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = (value != null && value ? Gender.Male : null)!;
+                            });
+                          },
+                        ),
+                        CheckboxListTile(
+                          title: Text('Female'),
+                          value: _selectedGender == Gender.Female,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedGender = (value != null && value ? Gender.Female : null)!;
+                            });
+                          },
+                        ),
 
-                ],
-              ),
       //-----------------------------------------------------------------------
 
               Inputfield(hintText: "Enter Your Phone Number+$_gender", labelText: "Phone Number" ,controller:phoneController ,/*call validatory conditions here*/),
