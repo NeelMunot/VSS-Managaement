@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> dispattd(),
+       "/" :(context)=> Registration(),
        '/login': (context) => LoginPage(),
       },
     );

@@ -237,9 +237,9 @@ CheckboxListTile(
                   ElevatedButton(onPressed: () async {
 
                 String Email=emailController.text.trim();
-                int User_Count=-1;
-                int Batch_count=-1;
-                await ref.child("Counters/User_Count").onValue.first.then((event) {
+                int User_Count=0;
+                int Batch_count=0;
+                await ref.child("Counters/User_count").onValue.first.then((event) {
                 User_Count = int.parse(event.snapshot.value.toString());
                 });
                 await ref.child("Counters/$_selectedbatch").onValue.first.then((event) {
