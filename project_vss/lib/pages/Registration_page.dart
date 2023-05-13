@@ -9,7 +9,7 @@ import 'package:flutter/src/material/dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/input_field.dart';
 import 'package:flutter_application_1/Backend.dart';
-enum Gender{Male,Female}
+
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
 
@@ -33,13 +33,8 @@ class _RegistrationState extends State<Registration> {
     'Mumbai','Amravati','Pune','Nagpur','Nanded','Akola','Aurangabad','Chandrapur','Ratnagiri'
   ];
   String? selectedValue;
-
- Gender _selectedGender=Gender.Male;
-  @override
-  void initState() {
-     super.initState();
-     _selectedGender = Gender.Male; // Initialize with a default value
-   }
+  String? _selectedbatch="B1";
+  String? _selectedGender="M";
   Widget build(BuildContext context) {
     
     return Scaffold(
@@ -55,24 +50,79 @@ class _RegistrationState extends State<Registration> {
               SizedBox(height: 15,),
 
               //----------------------checkbox for gender--------------
+Text( "Gender",
+            style:TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.normal,),),
+
+
+
+
 CheckboxListTile(
-                          title: Text('Male'),
-                          value: _selectedGender == Gender.Male,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedGender = (value != null && value ? Gender.Male : null)!;
-                            });
-                          },
-                        ),
-                        CheckboxListTile(
-                          title: Text('Female'),
-                          value: _selectedGender == Gender.Female,
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedGender = (value != null && value ? Gender.Female : null)!;
-                            });
-                          },
-                        ),
+  title: Text('Male'),
+  value: _selectedGender == "M",
+  onChanged: (value) {
+    setState(() {
+      if (value == true) {
+        _selectedGender = "M";
+      } else if (_selectedGender == "M") {
+        value = true;
+      } else {
+        _selectedGender = null;
+      }
+    });
+  },
+),
+CheckboxListTile(
+  title: Text('Female'),
+  value: _selectedGender == "F",
+  onChanged: (value) {
+    setState(() {
+      if (value == true) {
+        _selectedGender = "F";
+      } else if (_selectedGender == "F") {
+        value = true;
+      } else {
+        _selectedGender = null;
+      }
+    });
+  },
+),
+
+
+              //----------------------checkbox for Batches--------------
+Text( "Select a Batch",
+style:TextStyle(
+fontSize: 18,
+fontWeight: FontWeight.normal,),),
+
+CheckboxListTile(
+  title: Text('B1'),
+  value: _selectedbatch == "B1",
+  onChanged: (bool? value) {
+    setState(() {
+      _selectedbatch = value == true ? 'B1' : _selectedbatch;
+    });
+  },
+),
+CheckboxListTile(
+  title: Text('B2'),
+  value: _selectedbatch == "B2",
+  onChanged: (bool? value) {
+    setState(() {
+      _selectedbatch = value == true ? "B2" : _selectedbatch;
+    });
+  },
+),
+CheckboxListTile(
+  title: Text('B3'),
+  value: _selectedbatch == "B3",
+  onChanged: (bool? value) {
+    setState(() {
+      _selectedbatch = value == true ? "B3" : _selectedbatch;
+    });
+  },
+),
 
       //-----------------------------------------------------------------------
 
@@ -191,7 +241,7 @@ CheckboxListTile(
                 await ref.child("Counters/User_Count").onValue.first.then((event) {
                 User_Count = int.parse(event.snapshot.value.toString());
                 });
-                String Grn_No=GRN.generateGrn(_selectedGender.name,User_Count);
+                String Grn_No=GRN.generateGrn(_selectedGender.toString(),User_Count);
                 String password=passwordController.text.trim();
 
                 print(password);
@@ -201,15 +251,15 @@ CheckboxListTile(
                 UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: Email,password: password);
                 await ref.child("Counters/User_count").set(User_Count+1);
                 String? uid=userCredential.user?.uid;
+                await ref.child("Batches/$_selectedbatch").set({Grn_No:nameController.text.trim()});
                 await ref.child("users/$Grn_No").set({
                   "name": nameController.text.trim(),
                   "Phone Number": phoneController.text.trim(),
                   "GRN": Grn_No,
-                  "Gender": _selectedGender.name,
+                  "Gender": _selectedGender,
                   "Email": emailController.text.trim(),
                   "password":passwordController.text.trim(),
                   "HSC Marks":twelthController.text.trim(),
-                  "Batch":"",
                   "SSC Marks":tenthController.text.trim(),
                    });
                    popups.showMessage(context, "GRN Number alloted to you is \n '$Grn_No' \n Use this for Logging in your account. ");
