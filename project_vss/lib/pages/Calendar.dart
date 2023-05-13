@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Backend.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+void getdates() async
+{await Attendance.get_attendance();}
 
 class Mycalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+   getdates();
     return MaterialApp(
       title: 'Attendance',
       theme: ThemeData(
@@ -15,11 +19,7 @@ class Mycalendar extends StatelessWidget {
   }
 }
 
-List<DateTime> toHighlight = [
-  DateTime(2023, 5, 1),
-  DateTime(2023, 5, 25),
-  DateTime(2023, 5, 4),
-];
+List<DateTime> toHighlight = Attendance.Absent_days;
 
 class Calendar extends StatefulWidget {
   const Calendar({

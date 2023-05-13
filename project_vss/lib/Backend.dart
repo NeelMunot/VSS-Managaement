@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ffi';
+//import 'dart:js_util';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -154,8 +155,8 @@ class Batches
 
 class Attendance extends UserData
 {
-  static List<String> Total_days=[];
-  static List<String> Absent_days=[];
+  static List<DateTime> Total_days=[];
+  static List<DateTime> Absent_days=[];
 
   //will receive list of Grn nos.
   static markAttendance(String Batch,List<String> Grns) async
@@ -173,13 +174,15 @@ class Attendance extends UserData
             Map<String,String> data = dataset.map(
               (key, value) => MapEntry(key.toString(), value.toString())
             );
-            Total_days=data.keys.toList();
             for (var item in data.entries)
             {
               String date=item.key;
+              
+              Total_days.add(DateTime.parse(date));
               if(item.value.contains(UserData.Cur_Grn)==false)
               {
-                Absent_days.add(date);
+                print(date);
+                Absent_days.add(DateTime.parse(date));
               }
 
             }

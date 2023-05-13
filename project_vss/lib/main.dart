@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/Calendar.dart';
 // import 'package:flutter_application_1/pages/Batches.dart';
 // import 'package:flutter_application_1/pages/Homepage_admin.dart';
 // import 'package:flutter_application_1/pages/Homepage_user.dart';
 import 'package:flutter_application_1/pages/Login_page.dart';
 import 'package:flutter_application_1/pages/Registration_page.dart';
 import 'package:flutter_application_1/pages/mark_attendance.dart';
+import 'package:flutter_application_1/pages/profile.dart';
 import 'package:flutter_application_1/pages/table.dart';
 // import 'package:flutter_application_1/pages/Registration_page.dart';
 // import 'package:flutter_application_1/pages/table.dart';
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> Registration(),
+       "/" :(context)=> Mycalendar(),
       },
     );
   }

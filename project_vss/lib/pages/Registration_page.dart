@@ -257,6 +257,7 @@ CheckboxListTile(
                   "Phone Number": phoneController.text.trim(),
                   "GRN": Grn_No,
                   "Gender": _selectedGender,
+                  "Batch":_selectedbatch,
                   "Email": emailController.text.trim(),
                   "password":passwordController.text.trim(),
                   "HSC Marks":twelthController.text.trim(),
