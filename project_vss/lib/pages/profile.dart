@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     
               ListTile(
                 leading: Icon(Icons.phone),
-                title: Text('Phone Number :$_phonenumber',style: TextStyle(fontSize: 18),),),
+                title: Text('Phone Number :$_phoneNumber',style: TextStyle(fontSize: 18),),),
 
               ListTile(
                 leading: Icon(Icons.email),
