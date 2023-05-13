@@ -15,14 +15,13 @@ class _ProfilePageState extends State<ProfilePage> {
   String _address="";
   String _tenth="";
   String _twelth="";
-  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
 
     //data received in data variable when user logins
-    
+
     //value for above variblles is given here
 
     // Map<String,String> data=UserData.User_data;
