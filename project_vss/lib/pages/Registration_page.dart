@@ -238,8 +238,12 @@ CheckboxListTile(
 
                 String Email=emailController.text.trim();
                 int User_Count=-1;
+                int Batch_count=-1;
                 await ref.child("Counters/User_Count").onValue.first.then((event) {
                 User_Count = int.parse(event.snapshot.value.toString());
+                });
+                await ref.child("Counters/$_selectedbatch").onValue.first.then((event) {
+                Batch_count = int.parse(event.snapshot.value.toString());
                 });
                 String Grn_No=GRN.generateGrn(_selectedGender.toString(),User_Count);
                 String password=passwordController.text.trim();
@@ -250,8 +254,10 @@ CheckboxListTile(
                   try{
                 UserCredential userCredential = await _auth.createUserWithEmailAndPassword(email: Email,password: password);
                 await ref.child("Counters/User_count").set(User_Count+1);
+                await ref.child("Counters/$_selectedbatch").set(Batch_count+1);
                 String? uid=userCredential.user?.uid;
                 await ref.child("Batches/$_selectedbatch").set({Grn_No:nameController.text.trim()});
+
                 await ref.child("users/$Grn_No").set({
                   "name": nameController.text.trim(),
                   "Phone Number": phoneController.text.trim(),
