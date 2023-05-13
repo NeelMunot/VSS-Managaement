@@ -13,7 +13,6 @@ import 'package:flutter_application_1/pages/table.dart';
 // import 'package:flutter_application_1/pages/Registration_page.dart';
 // import 'package:flutter_application_1/pages/table.dart';
 
-
 //sejal
 //commenting2
 
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> Registration(),
+       "/" :(context)=> dispattd(),
        '/login': (context) => LoginPage(),
       },
     );
