@@ -39,52 +39,53 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('Profile Page'),
       ),
       body: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Name: $_name',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-      
-                    SizedBox(height: 8.0),
-                    Text(
-                      'grn: $_grn',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
+                    SizedBox(height: 10),
+                    
+                    ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Name :$_name ',style: TextStyle(fontSize: 18),),),
+                    
+                    ListTile(
+                leading: Icon(Icons.numbers),
+                title: Text('GRN  :$_grn ',
+                style: TextStyle(fontSize: 18),),
+              ),
+                    
+              ListTile(
+                leading: Icon(Icons.phone),
+                title: Text('Phone Number :$_phonenumber',style: TextStyle(fontSize: 18),),),
 
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Email: $_email',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-      
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Phone Number: $_phoneNumber',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-      
-                    SizedBox(height: 8.0),
-                    Text(
-                      'address: $_address',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
+              ListTile(
+                leading: Icon(Icons.email),
+                title: Text('Email: $_email',style: TextStyle(fontSize: 18),),),
 
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Tenth : $_tenth',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
+              ListTile(
+                leading: Icon(Icons.location_on),
+                title: Text('Address :$_address',style: TextStyle(fontSize: 18),),),
+                    
+              ListTile(
+                leading: Icon(Icons.grade),
+                title: Text('SSC Marks:$_tenth',style: TextStyle(fontSize: 18),),),
+                    
+              ListTile(
+                leading: Icon(Icons.grade),
+                title: Text('HSC Marks:$_twelth',style: TextStyle(fontSize: 18),),),
+
+                    
+                   
       
-                    SizedBox(height: 8.0),
-                    Text(
-                      'twelth: $_twelth',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
+                    
+
+                    
+      
+                   
+                    
                   ],
                 ),
           
