@@ -22,6 +22,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 Map<String,String> batch={};
+List<String> Present=[];
 List<String> arrN=[];
 List<String> prn=[];
   void getdata()async{
@@ -52,17 +53,24 @@ List<String> prn=[];
             title: Text(arrN[index]),
             subtitle: Text(prn[index]),
             value: _checkedItems[index],
-            onChanged: (newValue) {
-              setState(() {
-                _checkedItems[index] = true;
-              });
+            onChanged: (value) {
+                  setState(() {
+                    _checkedItems[index] = value!;
+                    if (value) {
+                          Present.add(prn[index]);
+                      } else {
+                        Present.remove(prn[index]);
+                      }
+                  });
             },
+
+
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print(_checkedItems);
+          Attendance.markAttendance("B1", Present);
         },
         child: Icon(Icons.check),
      ),

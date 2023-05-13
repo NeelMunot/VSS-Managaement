@@ -21,6 +21,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> Presents=[];
   List<bool> _checkedItems = List.generate(5, (index) => false);
   var arrN = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
   var prn = ['1','2','3','4','5'];
@@ -37,17 +38,25 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text(arrN[index]),
             subtitle: Text(prn[index]),
             value: _checkedItems[index],
-            onChanged: (newValue) {
-              setState(() {
-                _checkedItems[index] = true;
-              });
+            onChanged: (value) {
+                  setState(() {
+                    _checkedItems[index] = value!;
+                    if (value) {
+                          Presents.add(prn[index]);
+                      } else {
+                        Presents.remove(prn[index]);
+                      }
+                  });
             },
+
+            
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print(_checkedItems);
+          print(Presents);
         },
         child: Icon(Icons.check),
      ),

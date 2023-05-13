@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> Forgot_pwd(),
+       "/" :(context)=> dispattd(),
        '/login': (context) => LoginPage(),
       },
     );
