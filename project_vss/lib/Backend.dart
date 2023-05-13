@@ -115,32 +115,40 @@ class Batches
 {
   static Map<String,String> cur_batch={};
 
-//   static set_batch(String Grn,String New_Batch) async
-//   {
-//   int Batch_count=-1;
-//   String name="";
-//   String old_batch="";
-//       await ref.child("Counters/$New_Batch").onValue.first.then((event) {
-//            Batch_count = int.parse(event.snapshot.value.toString());
-//            });
-//       await ref.child("users/$Grn/name").onValue.first.then((event) {
-//            name = event.snapshot.value.toString();
-//            });
-//       await ref.child("users/$Grn/").onValue.first.then((event) {
-//            name = event.snapshot.value.toString();
-//            });
+  static set_batch(String Grn,String New_Batch) async
+  {
+  int Batch_count=-1;
+  int Old_Batch_count=-1;
+  String name="";
+  String Old_Batch="";
+      await ref.child("Counters/$New_Batch").onValue.first.then((event) {
+           Batch_count = int.parse(event.snapshot.value.toString());
+           });
+      await ref.child("users/$Grn/name").onValue.first.then((event) {
+           name = event.snapshot.value.toString();
+           });
+      await ref.child("Counters/$Old_Batch").onValue.first.then((event) {
+           Old_Batch_count = int.parse(event.snapshot.value.toString());
+           });
+      await ref.child("users/$Grn/Batch").onValue.first.then((event) {
+           Old_Batch = event.snapshot.value.toString();
+           });
 
-//   await ref.child("Batches/$New_Batch").set({Grn:name});
-//   await ref.child("Counters/$New_Batch").set(Batch_count+1);
+  await ref.child("Batches/$New_Batch").set({Grn:name});
+  await ref.child("Counters/$New_Batch").set(Batch_count+1);
+  await ref.child("Counters/$Old_Batch").set(Old_Batch_count-1);
 
-// ref.child("Batches/").remove().then((_) {
-//   print("Note deleted successfully.");
-// }).catchError((error) {
-//   print("Failed to delete note: $error");
+  await ref.child("Batches/$Grn").remove().then((_) {
+          print("Batch Changed Successfully");
+
+          }).catchError((error) {
+              print("Failed !!: $error");
+          });
+
+  await ref.child("Users/$Grn").set({"Batch":New_Batch});
 
 
-//   await ref.child("Users/$Grn").set({"Batch":New_Batch});
-//   }
+}
 
    static get_batches(String Batch) async
   {   cur_batch={};
