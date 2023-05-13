@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/Calendar.dart';
+import 'package:flutter_application_1/pages/Forgot_pwd.dart';
 // import 'package:flutter_application_1/pages/Batches.dart';
 // import 'package:flutter_application_1/pages/Homepage_admin.dart';
 // import 'package:flutter_application_1/pages/Homepage_user.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> Mycalendar(),
+       "/" :(context)=> Forgot_pwd(),
+       '/login': (context) => LoginPage(),
       },
     );
   }

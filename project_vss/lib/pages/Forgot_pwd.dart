@@ -32,8 +32,8 @@ if(GRN.validateGrn(Grn_No))
     {
     email= data["Email"].toString();
     print(email);
-      //await _auth.sendPasswordResetEmail(email: "piyanshu786ab@gmail.com");
-      await popups.showMessage(context, "Password Reset Email is Sent to the provided GRN Number's Email-ID \n\nUse the New Password For Logging in to your account.");
+      //await _auth.sendPasswordResetEmail(email: email);
+       popups.showMessage(context, "Password Reset Email is Sent to the provided GRN Number's Email-ID \n\nUse the New Password For Logging in to your account.");
 
     }
     

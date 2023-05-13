@@ -57,15 +57,10 @@ static showMessage(BuildContext context,String Message) {
             icon: icn,
             onPressed: (){
                             
-              if(Message.contains("Logging in"))
-              {Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-              }
-              else if(Message.contains("not Verified"))
-              {Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => LoginPage()),
-              );
+              if(Message.contains("Logging in") || Message.contains("not Verified") )
+              {
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, "/login");
               }
               else{
                 Navigator.of(context).pop();
