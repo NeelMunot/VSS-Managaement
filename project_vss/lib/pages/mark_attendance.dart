@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Backend.dart';
-
+import 'package:intl/intl.dart';
 
 class MyTable extends StatelessWidget {
   @override
@@ -21,33 +21,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-Map<String,String> batch={};
-List<String> Present=[];
-List<String> Name=[];
-List<String> Grn=[];
-String batch_name="";
-  
-  void getdata()async{
-    
-  await ref.child("Teacher/${UserData.Cur_Grn}").onValue.first.then((event) {
-                batch_name = event.snapshot.value.toString();
-            });
+  Map<String, String> batch = {};
+  List<String> Present = [];
+  List<String> Name = [];
+  List<String> Grn = [];
+  String batch_name = "";
 
-  await Batches.get_batches(batch_name);
-  batch=Batches.cur_batch;
-  Grn=batch.keys.toList();
-  Name=batch.values.toList();
+  void getdata() async {
+    await ref.child("Teacher/${UserData.Cur_Grn}").onValue.first.then((event) {
+      batch_name = event.snapshot.value.toString();
+    });
 
+    await Batches.get_batches(batch_name);
+    // print(batch_name);
+    batch = Batches.cur_batch;
+    Grn = batch.keys.toList();
+    Name = batch.values.toList();
   }
   //var Name = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
   //var Grn = ['1','2','3','4','5'];
-    
+
   @override
   Widget build(BuildContext context) {
     getdata();
+    print(batch_name);
     print(Name);
     print(Grn);
-  List<bool> _checkedItems = List.generate(Grn.length, (index) => false);
+    List<bool> _checkedItems = List.generate(Grn.length, (index) => false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Mark The Attendance'),
@@ -55,23 +55,20 @@ String batch_name="";
       body: ListView.builder(
         itemCount: _checkedItems.length,
         itemBuilder: (context, index) {
-          
           return CheckboxListTile(
             title: Text(Name[index]),
             subtitle: Text(Grn[index]),
             value: _checkedItems[index],
             onChanged: (value) {
-                  setState(() {
-                    _checkedItems[index] = value!;
-                    if (value) {
-                          Present.add(Grn[index]);
-                      } else {
-                        Present.remove(Grn[index]);
-                      }
-                  });
+              setState(() {
+                _checkedItems[index] = value!;
+                if (value) {
+                  Present.add(Grn[index]);
+                } else {
+                  Present.remove(Grn[index]);
+                }
+              });
             },
-
-
           );
         },
       ),
@@ -80,7 +77,7 @@ String batch_name="";
           Attendance.markAttendance("B1", Present);
         },
         child: Icon(Icons.check),
-     ),
-);
-}
+      ),
+    );
+  }
 }

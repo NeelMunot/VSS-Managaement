@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-       "/" :(context)=> ProfilePage(),
-       '/login': (context) => LoginPage(),
+        "/": (context) => LoginPage(),
+        '/login': (context) => LoginPage(),
       },
     );
   }

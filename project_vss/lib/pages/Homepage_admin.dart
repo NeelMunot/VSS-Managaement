@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/Calendar.dart';
 import 'package:flutter_application_1/pages/mark_attendance.dart';
+import 'package:flutter_application_1/pages/profile.dart';
 
 //import '../my_header_drawer.dart';
 
@@ -25,8 +27,12 @@ class Homepage_admin extends StatelessWidget {
             height: 20,
           ),
           ElevatedButton(
-              onPressed: () {},
-              child: Text(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
+              },
+              child: const Text(
                 "Profile",
               )),
           ElevatedButton(
@@ -35,8 +41,14 @@ class Homepage_admin extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => MyTable()),
                 );
               },
-              child: Text("Take Attendence")),
-          ElevatedButton(onPressed: () {}, child: Text("View Attendence")),
+              child: const Text("Take Attendence")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Mycalendar()),
+                );
+              },
+              child: Text("View Attendence")),
           ElevatedButton(onPressed: () => exit(0), child: Text("Log out")),
         ]),
       ))),

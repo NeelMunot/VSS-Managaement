@@ -24,7 +24,7 @@ class _RegistrationState extends State<Registration> {
   final TextEditingController tenthController = TextEditingController();
   final TextEditingController twelthController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController courseController = TextEditingController();   //here
+  final TextEditingController courseController = TextEditingController(); //here
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
@@ -287,7 +287,7 @@ class _RegistrationState extends State<Registration> {
                   hintText: "Enter Your Current Course Name",
                   labelText: "Current course",
                   controller:
-                      courseController, /*call validatory conditions here*/    //here
+                      courseController, /*call validatory conditions here*/ //here
                 ),
                 SizedBox(
                   height: 15,
@@ -303,21 +303,32 @@ class _RegistrationState extends State<Registration> {
                   height: 15,
                 ),
 
-              Row(
-                children: [
-                  ElevatedButton(onPressed: () async {
-
-                String Email=emailController.text.trim();
-                int User_Count=-1;
-                int Batch_count=-1;
-                await ref.child("Counters/User_count").onValue.first.then((event) {
-                User_Count = int.parse(event.snapshot.value.toString());
-                });
-                await ref.child("Counters/$_selectedbatch").onValue.first.then((event) {
-                Batch_count = int.parse(event.snapshot.value.toString());
-                });
-                String Grn_No=GRN.generateGrn(_selectedGender.toString(),User_Count);
-                String password=passwordController.text.trim();
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        String Email = emailController.text.trim();
+                        int User_Count = -1;
+                        int Batch_count = -1;
+                        await ref
+                            .child("Counters/User_count")
+                            .onValue
+                            .first
+                            .then((event) {
+                          User_Count =
+                              int.parse(event.snapshot.value.toString());
+                        });
+                        await ref
+                            .child("Counters/$_selectedbatch")
+                            .onValue
+                            .first
+                            .then((event) {
+                          Batch_count =
+                              int.parse(event.snapshot.value.toString());
+                        });
+                        String Grn_No = GRN.generateGrn(
+                            _selectedGender.toString(), User_Count);
+                        String password = passwordController.text.trim();
 
                         print(password);
                         if (EmailValidator.validate(Email)) {
@@ -346,17 +357,25 @@ class _RegistrationState extends State<Registration> {
                               "password": passwordController.text.trim(),
                               "HSC Marks": twelthController.text.trim(),
                               "SSC Marks": tenthController.text.trim(),
-                              "Course": courseController.text.trim(),  //here
+                              "Course": courseController.text.trim(), //here
+                              "address": addressController.text.trim() +
+                                  selectedValue.toString(),
                             });
                             popups.showMessage(context,
                                 "GRN Number alloted to you is \n '$Grn_No' \n Use this for Logging in your account. ");
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'weak-password') {
                               print("Password is too weak");
+                              popups.showMessage(
+                                  context, "Password is too weak");
                             } else if (e.code == 'email-already-in-use') {
                               print("Email is already in use");
+                              popups.showMessage(
+                                  context, "Email is already in use");
                             } else {
                               print("database error \n $e");
+                              popups.showMessage(
+                                  context, "database error \n $e");
                             }
                           } catch (e) {
                             print("internal error try again!!\n");
