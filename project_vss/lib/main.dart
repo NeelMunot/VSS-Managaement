@@ -7,6 +7,7 @@ import 'package:flutter_application_1/pages/Forgot_pwd.dart';
 // import 'package:flutter_application_1/pages/Homepage_user.dart';
 import 'package:flutter_application_1/pages/Login_page.dart';
 import 'package:flutter_application_1/pages/Registration_page.dart';
+import 'package:flutter_application_1/pages/demoattd.dart';
 import 'package:flutter_application_1/pages/mark_attendance.dart';
 import 'package:flutter_application_1/pages/profile.dart';
 import 'package:flutter_application_1/pages/table.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-        "/": (context) => LoginPage(),
+        "/": (context) => Demotable(),
         '/login': (context) => LoginPage(),
       },
     );
