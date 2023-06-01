@@ -1,50 +1,65 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Backend.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-void getdates() async
-{await Attendance.get_attendance();}
-
 class Mycalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   getdates();
     return MaterialApp(
       title: 'Attendance',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Calendar(toHighlight:toHighlight),
+      home: Calendar(),
     );
   }
 }
 
-List<DateTime> toHighlight = Attendance.Absent_days;
 
 class Calendar extends StatefulWidget {
-  const Calendar({
-    required this.toHighlight,
-    Key? key,
-  }) : super(key: key);
-
   @override
   _CalendarState createState() => _CalendarState();
 
-  final List<DateTime> toHighlight;
 }
 
 class _CalendarState extends State<Calendar> {
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
+  List<DateTime> toHighlight=[];
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(centerTitle: true,
           title: Text('Attendance'),
         ),
-        body: TableCalendar(
+        body: 
+        
+SafeArea(
+  child: Column(
+    children:[
+StreamBuilder(
+  stream: ref.child("Attendance/${UserData.User_data["Batch"]}").onValue,
+  builder: (context,snapshot) {
+    toHighlight=[];
+    if(snapshot.connectionState==ConnectionState.active)
+    {
+    if (snapshot.hasData) {
+      if (snapshot.data!.snapshot.value!=null) {
+      Map<String,String> alldates =( snapshot.data!.snapshot.value as Map<Object?,Object?> ).map((key, value) => MapEntry(key.toString(), value.toString()));
+
+        for (var item in alldates.entries) {
+        String date = item.key;
+        if (item.value.contains(UserData.Cur_Grn) == false & (toHighlight.contains(DateTime.parse(date)) == false) ) {
+          toHighlight.add(DateTime.parse(date));
+        }
+      }
+      return Expanded(
+        
+        child: TableCalendar(
             firstDay: DateTime.utc(2023, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
@@ -61,7 +76,7 @@ class _CalendarState extends State<Calendar> {
             },
             calendarBuilders: CalendarBuilders(
               defaultBuilder: (context, day, focusedDay) {
-                for (DateTime d in widget.toHighlight) {
+                for (DateTime d in toHighlight) {
                   if (day.day == d.day &&
                       day.month == d.month &&
                       day.year == d.year) {
@@ -83,5 +98,26 @@ class _CalendarState extends State<Calendar> {
                 }
                 return null;
               },
-            )));
-  }}
+            ))
+      );
+      }
+      else{
+        return Text("No Attendence  is Taken yet...");
+      }
+    }
+  }
+  else{
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+    }
+
+  return Text("Please Try again Later.....");
+  },
+
+      ),
+    ]
+   ),
+  )                  
+);
+}}

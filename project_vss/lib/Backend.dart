@@ -53,7 +53,7 @@ class popups {
                   Navigator.of(context).pop();
                   Navigator.pushReplacementNamed(context, "/login");
                 } 
-                else if(Message.contains("Batch") || Message.contains("Attendence")) {
+                else if(Message.contains("Attendence")) {
                   Navigator.of(context).pop();
                   Navigator.pushReplacementNamed(context, "/home");
                 }
@@ -94,6 +94,8 @@ class UserData {
         Cur_Grn = "";
       }
     });
+    print("Batch of user is is ");
+    print(User_data["Batch"]);
   }
 }
 
@@ -148,27 +150,5 @@ class Attendance extends UserData {
     String cur_date = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     await ref.child("Attendance/$Batch/$cur_date").set(Grns);
-  }
-
-  static get_attendance() async {
-    await ref
-        .child("Attendance/${UserData.User_data["Batch"]} ")
-        .onValue
-        .first
-        .then((event) {
-      var dataset = event.snapshot.value;
-      dataset as Map<Object?, Object?>;
-      Map<String, String> data = dataset
-          .map((key, value) => MapEntry(key.toString(), value.toString()));
-      for (var item in data.entries) {
-        String date = item.key;
-
-        Total_days.add(DateTime.parse(date));
-        if (item.value.contains(UserData.Cur_Grn) == false) {
-          print(date);
-          Absent_days.add(DateTime.parse(date));
-        }
-      }
-    });
   }
 }

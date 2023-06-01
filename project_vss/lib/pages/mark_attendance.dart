@@ -50,8 +50,8 @@ StreamBuilder(
     if(snapshot.connectionState==ConnectionState.active)
     {
     if (snapshot.hasData) {
+      if (snapshot.data!.snapshot.value!=null) {
       Map<String,dynamic> batchdata =( snapshot.data!.snapshot.value as Map<Object?,Object?> ).map((key, value) => MapEntry(key.toString(), value.toString()));
-      if (batchdata != null) {
           List<dynamic> Name =batchdata.values.toList();
           List<String> Grn = batchdata.keys.toList();
           if (_checkedItems.isEmpty) {
@@ -86,7 +86,7 @@ StreamBuilder(
       );
       }
       else{
-        popups.showMessage(context, "Batch data is empty");
+        return Text("Batch data is empty");
       }
     }
   }
@@ -96,7 +96,7 @@ StreamBuilder(
     );
     }
 
-  return popups.showMessage(context,"Please Try again Later.....");
+  return Text("Please Try again Later.....");
   },
 ),
   ]
@@ -105,7 +105,7 @@ StreamBuilder(
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Attendance.markAttendance("B1", Present);
+          Attendance.markAttendance(Batches.Alloted_batch, Present);
           popups.showMessage(context, "Attendence of ${Present.length} students is marked");
         },
         child: Icon(Icons.check),
