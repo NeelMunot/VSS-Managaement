@@ -5,30 +5,18 @@ import 'package:flutter_application_1/pages/Calendar.dart';
 import 'package:flutter_application_1/pages/Forgot_pwd.dart';
 import 'package:flutter_application_1/pages/Homepage_admin.dart';
 import 'package:flutter_application_1/pages/Homepage_user.dart';
-// import 'package:flutter_application_1/pages/Batches.dart';
-// import 'package:flutter_application_1/pages/Homepage_admin.dart';
-// import 'package:flutter_application_1/pages/Homepage_user.dart';
 import 'package:flutter_application_1/pages/Login_page.dart';
 import 'package:flutter_application_1/pages/Registration_page.dart';
-import 'package:flutter_application_1/pages/demoattd.dart';
 import 'package:flutter_application_1/pages/mark_attendance.dart';
 import 'package:flutter_application_1/pages/profile.dart';
 import 'package:flutter_application_1/pages/table.dart';
-// import 'package:flutter_application_1/pages/Registration_page.dart';
-// import 'package:flutter_application_1/pages/table.dart';
 
-//sejal
-//commenting2
-
-//import 'package:flutter_application_1/practice.dart';
-//import 'googleFonts.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
 
-// harshal's commit
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -43,7 +31,7 @@ class MyApp extends StatelessWidget {
     routes: {
   "/": (context) => LoginPage(),
   "/home": (context) {
-    // Check the user role here and return the appropriate widget
+    // Checks the user role here and return the appropriate page
     if (UserData.role=="student") {
       return Homepage_user();
     } else {
