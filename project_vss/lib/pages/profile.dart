@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_application_1/Backend.dart';
+import 'package:VSS/Backend.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

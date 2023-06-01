@@ -6,8 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/input_field.dart';
-import 'package:flutter_application_1/Backend.dart';
+import 'package:VSS/widgets/input_field.dart';
+import 'package:VSS/Backend.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);

@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/Login_page.dart';
+import 'package:VSS/pages/Login_page.dart';
 import 'main.dart';
 import 'package:intl/intl.dart';
 

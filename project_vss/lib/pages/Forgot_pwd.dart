@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/input_field.dart';
-import 'package:flutter_application_1/Backend.dart';
-import 'package:flutter_application_1/pages/Login_page.dart';
+import 'package:VSS/widgets/input_field.dart';
+import 'package:VSS/Backend.dart';
+import 'package:VSS/pages/Login_page.dart';
 class Forgot_pwd extends StatefulWidget {
   const Forgot_pwd({Key? key}) : super(key: key);
 

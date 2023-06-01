@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/Calendar.dart';
-import 'package:flutter_application_1/pages/Login_page.dart';
-import 'package:flutter_application_1/pages/profile.dart';
-import 'package:flutter_application_1/pages/table.dart';
+import 'package:VSS/pages/Calendar.dart';
+import 'package:VSS/pages/Login_page.dart';
+import 'package:VSS/pages/profile.dart';
+import 'package:VSS/pages/table.dart';
 
 //import '../my_header_drawer.dart';
 

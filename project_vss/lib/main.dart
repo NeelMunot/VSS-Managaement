@@ -1,15 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Backend.dart';
-import 'package:flutter_application_1/pages/Calendar.dart';
-import 'package:flutter_application_1/pages/Forgot_pwd.dart';
-import 'package:flutter_application_1/pages/Homepage_admin.dart';
-import 'package:flutter_application_1/pages/Homepage_user.dart';
-import 'package:flutter_application_1/pages/Login_page.dart';
-import 'package:flutter_application_1/pages/Registration_page.dart';
-import 'package:flutter_application_1/pages/mark_attendance.dart';
-import 'package:flutter_application_1/pages/profile.dart';
-import 'package:flutter_application_1/pages/table.dart';
+import 'package:VSS/Backend.dart';
+import 'package:VSS/pages/Calendar.dart';
+import 'package:VSS/pages/Forgot_pwd.dart';
+import 'package:VSS/pages/Homepage_admin.dart';
+import 'package:VSS/pages/Homepage_user.dart';
+import 'package:VSS/pages/Login_page.dart';
+import 'package:VSS/pages/Registration_page.dart';
+import 'package:VSS/pages/mark_attendance.dart';
+import 'package:VSS/pages/profile.dart';
+import 'package:VSS/pages/table.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

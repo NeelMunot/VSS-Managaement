@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/Calendar.dart';
-import 'package:flutter_application_1/pages/mark_attendance.dart';
-import 'package:flutter_application_1/pages/profile.dart';
+import 'package:VSS/pages/Calendar.dart';
+import 'package:VSS/pages/mark_attendance.dart';
+import 'package:VSS/pages/profile.dart';
 
 //import '../my_header_drawer.dart';
 

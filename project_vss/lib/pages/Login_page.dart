@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/Forgot_pwd.dart';
-import 'package:flutter_application_1/pages/Homepage_admin.dart';
-import 'package:flutter_application_1/pages/Homepage_user.dart';
-import 'package:flutter_application_1/pages/Registration_page.dart';
-import 'package:flutter_application_1/widgets/input_field.dart';
-import 'package:flutter_application_1/Backend.dart';
+import 'package:VSS/pages/Forgot_pwd.dart';
+import 'package:VSS/pages/Homepage_admin.dart';
+import 'package:VSS/pages/Homepage_user.dart';
+import 'package:VSS/pages/Registration_page.dart';
+import 'package:VSS/widgets/input_field.dart';
+import 'package:VSS/Backend.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
