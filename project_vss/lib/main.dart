@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Backend.dart';
 import 'package:flutter_application_1/pages/Calendar.dart';
 import 'package:flutter_application_1/pages/Forgot_pwd.dart';
+import 'package:flutter_application_1/pages/Homepage_admin.dart';
+import 'package:flutter_application_1/pages/Homepage_user.dart';
 // import 'package:flutter_application_1/pages/Batches.dart';
 // import 'package:flutter_application_1/pages/Homepage_admin.dart';
 // import 'package:flutter_application_1/pages/Homepage_user.dart';
@@ -37,10 +40,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
-      routes: {
-        "/": (context) => Demotable(),
-        '/login': (context) => LoginPage(),
-      },
+    routes: {
+  "/": (context) => LoginPage(),
+  "/home": (context) {
+    // Check the user role here and return the appropriate widget
+    if (UserData.role=="student") {
+      return Homepage_user();
+    } else {
+      return Homepage_admin();
+    }
+  },
+},
     );
   }
 }

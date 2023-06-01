@@ -29,13 +29,12 @@ void login() async{
 //   print(batch);
 
 
-  String Grn_No=grnController.text.trim();
+  String Grn_No=grnController.text.trim().toUpperCase();
   String PWD=passwordController.text.trim();
   print(Grn_No);
   print(PWD);
   String email="";
   String userid="";
-  print(Grn_No);
 if(GRN.validateGrn(Grn_No))
 {
     await UserData.checkdata(Grn_No);
@@ -45,7 +44,7 @@ if(GRN.validateGrn(Grn_No))
     {
     email= data["Email"].toString();
     print(email);
-    try{
+    try {
       _auth.signInWithEmailAndPassword(email: email, password: PWD);
       if(_auth.currentUser?.emailVerified==false)
         {
@@ -55,11 +54,14 @@ if(GRN.validateGrn(Grn_No))
       else
       {       
         Query queryt=ref.child("Teachers/$Grn_No");
-        await queryt.onValue.first.then((event) {
+        await queryt.onValue.first.then((event) async {
         var snapshotT = event.snapshot;       
               
               if(snapshotT.value!=null)
               {
+              UserData.role="Teacher";
+              await Batches.get_batches();
+              print("alloted batch is${Batches.Alloted_batch}");
               Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => Homepage_admin()),
               );

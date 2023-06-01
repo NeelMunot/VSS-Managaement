@@ -48,10 +48,17 @@ class popups {
               icon: icn,
               onPressed: () {
                 if (Message.contains("Logging in") ||
-                    Message.contains("not Verified")) {
+                    Message.contains("not verified")) {
+
                   Navigator.of(context).pop();
                   Navigator.pushReplacementNamed(context, "/login");
-                } else {
+                } 
+                else if(Message.contains("Batch") || Message.contains("Attendence")) {
+                  Navigator.of(context).pop();
+                  Navigator.pushReplacementNamed(context, "/home");
+                }
+                else
+                {
                   Navigator.of(context).pop();
                 }
               },
@@ -64,6 +71,7 @@ class popups {
 }
 
 class UserData {
+  static String role="student";
   static Map<String, String> User_data = {};
   static String Cur_Grn = "";
 
@@ -80,6 +88,7 @@ class UserData {
             .map((key, value) => MapEntry(key.toString(), value.toString()));
         print(dataset.runtimeType);
         Cur_Grn = Grn_No;
+
       } else {
         User_data = {};
         Cur_Grn = "";
@@ -89,7 +98,7 @@ class UserData {
 }
 
 class Batches {
-  static Map<String, String> cur_batch = {};
+  static String Alloted_batch = "";
 
   static set_batch(String Grn, String New_Batch) async {
     int Batch_count = -1;
@@ -122,21 +131,11 @@ class Batches {
     await ref.child("Users/$Grn").set({"Batch": New_Batch});
   }
 
-  static get_batches(String Batch) async {
-    cur_batch = {};
-
-    Query query = ref.child("Batches/$Batch");
-    await query.onValue.first.then((event) {
-      var snapshot = event.snapshot;
-
-      if (snapshot.value != null) {
-        var dataset = snapshot.value;
-        dataset as Map<Object?, Object?>;
-        cur_batch = dataset
-            .map((key, value) => MapEntry(key.toString(), value.toString()));
-      }
+  static get_batches() async {
+    await ref.child("Teachers/${UserData.Cur_Grn}").onValue.first.then((event) {
+      Alloted_batch = event.snapshot.value.toString();
+      print(Alloted_batch);
     });
-    print(cur_batch);
   }
 }
 
@@ -148,7 +147,7 @@ class Attendance extends UserData {
   static markAttendance(String Batch, List<String> Grns) async {
     String cur_date = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
-    await ref.child("Attendance/$Batch/cur_date").set(Grns);
+    await ref.child("Attendance/$Batch/$cur_date").set(Grns);
   }
 
   static get_attendance() async {

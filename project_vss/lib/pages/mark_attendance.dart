@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Backend.dart';
 import 'package:intl/intl.dart';
@@ -22,40 +24,47 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Map<String, String> batch = {};
-  List<String> Present = [];
   List<String> Name = [];
   List<String> Grn = [];
   String batch_name = "";
+  List<bool> _checkedItems =[];
+  List<String> Present=[];
 
-  void getdata() async {
-    await ref.child("Teacher/${UserData.Cur_Grn}").onValue.first.then((event) {
-      batch_name = event.snapshot.value.toString();
-    });
-
-    await Batches.get_batches(batch_name);
-    // print(batch_name);
-    batch = Batches.cur_batch;
-    Grn = batch.keys.toList();
-    Name = batch.values.toList();
-  }
   //var Name = ['Mohit', 'Neel', 'Piyanshu', 'Yogu', 'Korade'];
   //var Grn = ['1','2','3','4','5'];
 
   @override
   Widget build(BuildContext context) {
-    getdata();
-    print(batch_name);
-    print(Name);
-    print(Grn);
-    List<bool> _checkedItems = List.generate(Grn.length, (index) => false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Mark The Attendance'),
       ),
-      body: ListView.builder(
-        itemCount: _checkedItems.length,
-        itemBuilder: (context, index) {
-          return CheckboxListTile(
+    
+      body:
+SafeArea(
+  child: Column(
+    children:[
+StreamBuilder(
+  stream: ref.child("Batches/${Batches.Alloted_batch}").onValue,
+  builder: (context,snapshot) {
+    if(snapshot.connectionState==ConnectionState.active)
+    {
+    if (snapshot.hasData) {
+      Map<String,dynamic> batchdata =( snapshot.data!.snapshot.value as Map<Object?,Object?> ).map((key, value) => MapEntry(key.toString(), value.toString()));
+      if (batchdata != null) {
+          List<dynamic> Name =batchdata.values.toList();
+          List<String> Grn = batchdata.keys.toList();
+          if (_checkedItems.isEmpty) {
+              _checkedItems = List.generate(Grn.length, (index) => false);
+            }
+
+
+      return Expanded(
+        child: ListView.builder(
+          itemCount:batchdata.keys.length ,
+          itemBuilder: (context, index){
+      
+            return CheckboxListTile(
             title: Text(Name[index]),
             subtitle: Text(Grn[index]),
             value: _checkedItems[index],
@@ -68,16 +77,42 @@ class _MyHomePageState extends State<MyHomePage> {
                   Present.remove(Grn[index]);
                 }
               });
+              print("presents== $Present");
             },
           );
-        },
-      ),
+            
+          },
+          ),
+      );
+      }
+      else{
+        popups.showMessage(context, "Batch data is empty");
+      }
+    }
+  }
+  else{
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+    }
+
+  return popups.showMessage(context,"Please Try again Later.....");
+  },
+),
+  ]
+  ),
+),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Attendance.markAttendance("B1", Present);
+          popups.showMessage(context, "Attendence of ${Present.length} students is marked");
         },
         child: Icon(Icons.check),
       ),
+    
+
+
     );
   }
 }
