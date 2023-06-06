@@ -344,8 +344,8 @@ class _RegistrationState extends State<Registration> {
                                 .set(Batch_count + 1);
                             String? uid = userCredential.user?.uid;
                             await ref
-                                .child("Batches/$_selectedbatch")
-                                .set({Grn_No: nameController.text.trim()});
+                                .child("Batches/$_selectedbatch/$Grn_No")
+                                .set(nameController.text.trim());
 
                             await ref.child("users/$Grn_No").set({
                               "name": nameController.text.trim(),
