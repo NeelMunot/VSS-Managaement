@@ -142,9 +142,6 @@ class Batches {
 }
 
 class Attendance extends UserData {
-  static List<DateTime> Total_days = [];
-  static List<DateTime> Absent_days = [];
-
   //will receive list of Grn nos.
   static markAttendance(String Batch, List<String> Grns) async {
     String cur_date = DateFormat('yyyy-MM-dd').format(DateTime.now());

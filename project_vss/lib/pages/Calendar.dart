@@ -27,7 +27,8 @@ class _CalendarState extends State<Calendar> {
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  List<DateTime> toHighlight=[];
+  List<DateTime> Total_Days=[];
+  List<DateTime> Absent_days=[];
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,8 @@ SafeArea(
 StreamBuilder(
   stream: ref.child("Attendance/${UserData.User_data["Batch"]}").onValue,
   builder: (context,snapshot) {
-    toHighlight=[];
+    Total_Days=[];
+    Absent_days=[];
     if(snapshot.connectionState==ConnectionState.active)
     {
     if (snapshot.hasData) {
@@ -53,9 +55,14 @@ StreamBuilder(
 
         for (var item in alldates.entries) {
         String date = item.key;
-        if (item.value.contains(UserData.Cur_Grn) == false & (toHighlight.contains(DateTime.parse(date)) == false) ) {
-          toHighlight.add(DateTime.parse(date));
+        if ( Total_Days.contains(DateTime.parse(date)) == false ) {
+          Total_Days.add(DateTime.parse(date));
+        
+          if (item.value.contains(UserData.Cur_Grn) == false & (Absent_days.contains(DateTime.parse(date)) == false) ) {
+            Absent_days.add(DateTime.parse(date));
+            }
         }
+
       }
       return Expanded(
         
@@ -76,13 +83,13 @@ StreamBuilder(
             },
             calendarBuilders: CalendarBuilders(
               defaultBuilder: (context, day, focusedDay) {
-                for (DateTime d in toHighlight) {
+                for (DateTime d in Total_Days) {  //Used to display all dates
                   if (day.day == d.day &&
                       day.month == d.month &&
                       day.year == d.year) {
                     return Container(
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
+                      decoration: BoxDecoration(
+                        color:  (Absent_days.contains(d)==true) ? Colors.red : Colors.green, // condition for absent & present
                         borderRadius: BorderRadius.all(
                           Radius.circular(8.0),
                         ),
