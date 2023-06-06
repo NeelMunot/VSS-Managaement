@@ -3,19 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:VSS/Backend.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Mycalendar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Attendance',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Calendar(),
-    );
-  }
-}
-
 
 class Calendar extends StatefulWidget {
   @override

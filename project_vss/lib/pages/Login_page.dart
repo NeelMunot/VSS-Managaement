@@ -46,7 +46,7 @@ if(GRN.validateGrn(Grn_No))
     print(email);
     try {
       _auth.signInWithEmailAndPassword(email: email, password: PWD);
-      if(_auth.currentUser?.emailVerified==false)
+      if(await _auth.currentUser?.emailVerified==false)
         {
           await _auth.currentUser?.sendEmailVerification();
           popups.showMessage(context, "User is not verified\n A verification link is sent to verify");

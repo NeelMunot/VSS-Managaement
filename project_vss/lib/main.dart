@@ -9,7 +9,6 @@ import 'package:VSS/pages/Login_page.dart';
 import 'package:VSS/pages/Registration_page.dart';
 import 'package:VSS/pages/mark_attendance.dart';
 import 'package:VSS/pages/profile.dart';
-import 'package:VSS/pages/table.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

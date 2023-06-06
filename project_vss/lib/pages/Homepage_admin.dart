@@ -38,14 +38,14 @@ class Homepage_admin extends StatelessWidget {
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => MyTable()),
+                  MaterialPageRoute(builder: (context) => Mark_Attd()),
                 );
               },
               child: const Text("Take Attendence")),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Mycalendar()),
+                  MaterialPageRoute(builder: (context) => Calendar()),
                 );
               },
               child: Text("View Attendence")),
