@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
     routes: {
   "/": (context) => LoginPage(),
+  "/login": (context) => LoginPage(),
   "/home": (context) {
     // Checks the user role here and return the appropriate page
     if (UserData.role=="student") {
