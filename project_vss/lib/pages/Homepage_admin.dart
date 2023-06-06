@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:VSS/pages/Login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:VSS/pages/Calendar.dart';
 import 'package:VSS/pages/mark_attendance.dart';
@@ -12,6 +14,7 @@ class Homepage_admin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -37,6 +40,7 @@ class Homepage_admin extends StatelessWidget {
               )),
           ElevatedButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => Mark_Attd()),
                 );
@@ -49,7 +53,16 @@ class Homepage_admin extends StatelessWidget {
                 );
               },
               child: Text("View Attendence")),
-          ElevatedButton(onPressed: () => exit(0), child: Text("Log out")),
+          ElevatedButton(
+            onPressed: () {
+              _auth.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,MaterialPageRoute(builder: (context) => LoginPage()),
+              (Route<dynamic> route) => false, // Remove all previous routes
+                  );
+                },
+                child: const Text("Log out"), 
+                ),
         ]),
       ))),
       body: SingleChildScrollView(
