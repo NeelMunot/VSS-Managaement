@@ -1,9 +1,9 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:VSS/widgets/input_field.dart';
 import 'package:VSS/Backend.dart';
-import 'package:VSS/pages/Login_page.dart';
 class Forgot_pwd extends StatefulWidget {
   const Forgot_pwd({Key? key}) : super(key: key);
 
@@ -21,18 +21,17 @@ void Forgot() async{
   String Grn_No=grnController.text.trim();
   print(Grn_No);
   String email="";
-  String userid="";
   print(Grn_No);
 if(GRN.validateGrn(Grn_No))
 {
     await UserData.checkdata(Grn_No);
     Map<String,String> data=UserData.User_data;
     
-    if(data.isNotEmpty)
+    if(EmailValidator.validate(data["Email"]!))
     {
     email= data["Email"].toString();
     print(email);
-      //await _auth.sendPasswordResetEmail(email: email);
+    await _auth.sendPasswordResetEmail(email: email);
        popups.showMessage(context, "Password Reset Email is Sent to the provided GRN Number's Email-ID \n\nUse the New Password For Logging in to your account.");
 
     }

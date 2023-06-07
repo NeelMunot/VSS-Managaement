@@ -1,15 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:VSS/Backend.dart';
-import 'package:VSS/pages/Calendar.dart';
-import 'package:VSS/pages/Forgot_pwd.dart';
 import 'package:VSS/pages/Homepage_admin.dart';
 import 'package:VSS/pages/Homepage_user.dart';
 import 'package:VSS/pages/Login_page.dart';
-import 'package:VSS/pages/Registration_page.dart';
-import 'package:VSS/pages/mark_attendance.dart';
-import 'package:VSS/pages/profile.dart';
-
+import 'package:VSS/pages/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -27,8 +22,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
+      //home: SplashScreen(),
     routes: {
-  "/": (context) => LoginPage(),
+  "/": (context) => SplashScreen(),
   "/login": (context) => LoginPage(),
   "/home": (context) {
     // Checks the user role here and return the appropriate page

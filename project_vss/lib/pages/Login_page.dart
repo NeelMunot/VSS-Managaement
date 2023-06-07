@@ -7,6 +7,7 @@ import 'package:VSS/pages/Homepage_user.dart';
 import 'package:VSS/pages/Registration_page.dart';
 import 'package:VSS/widgets/input_field.dart';
 import 'package:VSS/Backend.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -19,6 +20,12 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController grnController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final ref = FirebaseDatabase.instance.ref();
+  final storage = FlutterSecureStorage();
+  @override
+  void initState() {
+    super.initState();
+  }
+
 void login() async{
 
 
@@ -34,7 +41,7 @@ void login() async{
   print(Grn_No);
   print(PWD);
   String email="";
-  String userid="";
+  //String userid="";
 if(GRN.validateGrn(Grn_No))
 {
     await UserData.checkdata(Grn_No);
@@ -52,7 +59,12 @@ if(GRN.validateGrn(Grn_No))
           popups.showMessage(context, "User is not verified\n A verification link is sent to verify");
         }
       else
-      {       
+      {
+        await storage.write(key: 'username', value: email);
+        await storage.write(key: 'password', value: PWD);
+        await storage.write(key: 'role', value: "student");
+        await storage.write(key: 'grn', value: Grn_No);
+
         Query queryt=ref.child("Teachers/$Grn_No");
         await queryt.onValue.first.then((event) async {
         var snapshotT = event.snapshot;       
@@ -60,6 +72,7 @@ if(GRN.validateGrn(Grn_No))
               if(snapshotT.value!=null)
               {
               UserData.role="Teacher";
+              await storage.write(key: 'role', value: "Teacher");
               await Batches.get_batches();
               print("alloted batch is${Batches.Alloted_batch}");
               Navigator.of(context).push(

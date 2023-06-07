@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -342,7 +340,6 @@ class _RegistrationState extends State<Registration> {
                             await ref
                                 .child("Counters/$_selectedbatch")
                                 .set(Batch_count + 1);
-                            String? uid = userCredential.user?.uid;
                             await ref
                                 .child("Batches/$_selectedbatch/$Grn_No")
                                 .set(nameController.text.trim());
