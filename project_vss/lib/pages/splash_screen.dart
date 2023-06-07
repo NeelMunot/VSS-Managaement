@@ -50,8 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 }
 
     }
-    
-    Navigator.pushReplacementNamed(context, '/login');
+    else{
+        Navigator.pushReplacementNamed(context, '/login');
+      }
   }
 
   @override

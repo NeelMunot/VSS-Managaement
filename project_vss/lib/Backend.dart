@@ -47,8 +47,10 @@ class popups {
                 if (Message.contains("Logging in") ||
                     Message.contains("not verified")) {
 
-                  Navigator.of(context).pop();
-                  Navigator.pushReplacementNamed(context, "/login");
+                  Navigator.pushAndRemoveUntil(
+                  context,MaterialPageRoute(builder: (context) => SplashScreen()),
+                  (Route<dynamic> route) => false, // Remove all previous routes
+                  );
                 } 
                 else if(Message.contains("Attendence")) {
                   Navigator.of(context).pop();

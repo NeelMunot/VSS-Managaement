@@ -94,10 +94,19 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               leading: Icon(Icons.account_balance_rounded),
               title: Text(
-                'Batch Alotted: $_batch',
+                'My Batch : $_batch',
                 style: TextStyle(fontSize: 18),
               ),
             ),
+            
+              if(UserData.role=="Teacher")
+              ListTile(
+                leading: Icon(Icons.account_balance_rounded),
+                title: Text(
+                  'Incharge of Batch : ${Batches.Alloted_batch}',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
           ],
         ),
       ),
