@@ -4,15 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:VSS/pages/Calendar.dart';
 import 'package:VSS/pages/mark_attendance.dart';
 import 'package:VSS/pages/profile.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-//import '../my_header_drawer.dart';
 
 class Homepage_admin extends StatelessWidget {
-  const Homepage_admin({super.key});
+  Homepage_admin({super.key});
+  final storage = FlutterSecureStorage();
+  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+    void logout() async{
+        await storage.write(key: 'username', value: "");
+        await storage.write(key: 'password', value: "");
+        await storage.write(key: 'role', value: "");
+        await storage.write(key: 'grn', value: "");
+        _auth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -53,11 +62,12 @@ class Homepage_admin extends StatelessWidget {
               child: Text("View Attendence")),
           ElevatedButton(
             onPressed: () {
-              _auth.signOut();
+            logout();
               Navigator.pushAndRemoveUntil(
-                context,MaterialPageRoute(builder: (context) => LoginPage()),
-              (Route<dynamic> route) => false, // Remove all previous routes
+                  context,MaterialPageRoute(builder: (context) => LoginPage()),
+                  (Route<dynamic> route) => false, // Remove all previous routes
                   );
+                  
                 },
                 child: const Text("Log out"), 
                 ),

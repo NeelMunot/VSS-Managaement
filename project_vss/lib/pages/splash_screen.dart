@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../Backend.dart';
+import 'package:VSS/Backend.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   final storage = FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   @override
   void initState() {
     super.initState();
@@ -26,15 +24,27 @@ class _SplashScreenState extends State<SplashScreen> {
     String? role = await storage.read(key: 'role');
     String? grn = await storage.read(key: 'grn');
 
-    if (username != null && password != null) {
+    if (username != "" && password != "") {
+      
           await UserData.checkdata(grn!);
           UserData.role=role!;
-      // Credentials found, automatically log in and redirect to home page
-      // Perform your authentication logic here
-
-      // Redirect to home page
-      _auth.signInWithEmailAndPassword(email: username, password: password);
-      Navigator.pushReplacementNamed(context, '/home');
+          try{
+                _auth.signInWithEmailAndPassword(email: username.toString(), password: password.toString());
+                Navigator.pushReplacementNamed(context, '/home');
+              }on FirebaseAuthException catch (e)
+                {
+                    {
+                        if(e.code=='wrong-password')
+                          {
+                            popups.showMessage(context,"Invalid Password !!");
+                          }
+                        else
+                          {
+                            popups.showMessage(context,e.message.toString());
+        
+                          }
+                    }
+                }
 
     }
     else

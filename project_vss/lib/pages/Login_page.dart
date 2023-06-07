@@ -75,16 +75,24 @@ if(GRN.validateGrn(Grn_No))
               await storage.write(key: 'role', value: "Teacher");
               await Batches.get_batches();
               print("alloted batch is${Batches.Alloted_batch}");
-              Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => Homepage_admin()),
-              );
+              Navigator.pushAndRemoveUntil(
+                context,MaterialPageRoute(builder: (context) => Homepage_admin()),
+              (Route<dynamic> route) => false, // Remove all previous routes
+                  );
+              // Navigator.of(context).push(
+              // MaterialPageRoute(builder: (context) => Homepage_admin()),
+              // );
 
               }
 
               else{
-              Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => Homepage_user()),
-              );
+                Navigator.pushAndRemoveUntil(
+                context,MaterialPageRoute(builder: (context) => Homepage_user()),
+              (Route<dynamic> route) => false, // Remove all previous routes
+                  );
+              // Navigator.of(context).push(
+              // MaterialPageRoute(builder: (context) => Homepage_user()),
+              // );
 
               }
 
@@ -166,6 +174,7 @@ else{
               //____________Login Button______________
               ElevatedButton(onPressed: (){
                 login();
+                
                 },
                  child: Text("Login"),style: TextButton.styleFrom(minimumSize: Size(250, 40)),),
               SizedBox(
