@@ -14,14 +14,11 @@ class _ProfilePageState extends State<ProfilePage> {
   String _address = "";
   String _tenth = "";
   String _twelth = "";
+  String _batch = "";
 
   @override
   void initState() {
     super.initState();
-
-    // data received in data variable when user logins
-
-    // value for above variblles is given here
 
     Map<String, String> data = UserData.User_data;
     _name = data["name"]!;
@@ -31,6 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
     _address = data["address"]!;
     _tenth = data["SSC Marks"]!;
     _twelth = data["HSC Marks"]!;
+    _batch = data["Batch"]!;
   }
 
   @override
@@ -47,21 +45,21 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               leading: Icon(Icons.person),
               title: Text(
-                'Name :$_name ',
+                'Name : $_name ',
                 style: TextStyle(fontSize: 18),
               ),
             ),
             ListTile(
               leading: Icon(Icons.numbers),
               title: Text(
-                'GRN  :$_grn ',
+                'GRN  : $_grn ',
                 style: TextStyle(fontSize: 18),
               ),
             ),
             ListTile(
               leading: Icon(Icons.phone),
               title: Text(
-                'Phone Number :$_phoneNumber',
+                'Phone Number : $_phoneNumber',
                 style: TextStyle(fontSize: 18),
               ),
             ),
@@ -75,21 +73,28 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               leading: Icon(Icons.location_on),
               title: Text(
-                'Address :$_address',
+                'Address : $_address',
                 style: TextStyle(fontSize: 18),
               ),
             ),
             ListTile(
               leading: Icon(Icons.grade),
               title: Text(
-                'SSC Marks:$_tenth',
+                'SSC Marks: $_tenth',
                 style: TextStyle(fontSize: 18),
               ),
             ),
             ListTile(
               leading: Icon(Icons.grade),
               title: Text(
-                'HSC Marks:$_twelth',
+                'HSC Marks: $_twelth',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_balance_rounded),
+              title: Text(
+                'Batch Alotted: $_batch',
                 style: TextStyle(fontSize: 18),
               ),
             ),

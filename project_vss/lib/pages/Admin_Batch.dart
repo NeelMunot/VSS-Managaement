@@ -1,12 +1,13 @@
 import 'package:VSS/Backend.dart';
 import 'package:flutter/material.dart';
 
-class MyBatches extends StatelessWidget {
+class AdminBatches extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Batch Change '),
+        title: Text('Batches'),
       ),
       body: Center(
         child: Column(
@@ -20,7 +21,7 @@ class MyBatches extends StatelessWidget {
              ),
             ),
             SizedBox(height: 20,),
-            Text("Current Batch ${UserData.User_data["Batch"]}", style:TextStyle(
+            Text("Incharge of ${Batches.Alloted_batch} Batch", style:TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.blue,
@@ -30,14 +31,14 @@ class MyBatches extends StatelessWidget {
 
             ElevatedButton(
               onPressed: () {
-                if(UserData.User_data["Batch"] !="B1")
+                if(Batches.Alloted_batch !="B1")
                 {
-                  Batches.set_batch("B1");
-                  popups.showMessage(context, "Batch Changed to 'B1' Successfully");
+                  Batches.set_admin_batch("B1");
+                  popups.showMessage(context, "You are alloted to 'B1' Batch Successfully");
                 }
                 else
                 {
-                  popups.showMessage(context, "You are already in B1 this Batch");
+                  popups.showMessage(context, "You are already assigned to 'B1' Batch");
 
                 }
               },
@@ -47,14 +48,14 @@ class MyBatches extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                if(UserData.User_data["Batch"] !="B2")
+                if(Batches.Alloted_batch !="B2")
                 {
-                  Batches.set_batch("B2");
-                  popups.showMessage(context, "Batch Changed to 'B2' Successfully");
+                  Batches.set_admin_batch("B2");
+                  popups.showMessage(context, "You are alloted to 'B2' Batch Successfully");
                 }
                 else
                 {
-                  popups.showMessage(context, "You are already in B2 this Batch");
+                  popups.showMessage(context, "You are already assigned to 'B2' Batch");
 
                 }
               },
@@ -64,14 +65,14 @@ class MyBatches extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                if(UserData.User_data["Batch"] !="B3")
+                if(Batches.Alloted_batch !="B3")
                 {
-                  Batches.set_batch("B3");
-                  popups.showMessage(context, "Batch Changed to 'B3' Successfully");
+                  Batches.set_admin_batch("B3");
+                  popups.showMessage(context, "You are alloted to 'B3' Batch Successfully");
                 }
                 else
                 {
-                  popups.showMessage(context, "You are already in B3 this Batch");
+                  popups.showMessage(context, "You are already assigned to 'B3' Batch");
 
                 }
               },

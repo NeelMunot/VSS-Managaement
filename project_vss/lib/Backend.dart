@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:VSS/pages/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +54,12 @@ class popups {
                   Navigator.of(context).pop();
                   Navigator.pushReplacementNamed(context, "/home");
                 }
+                else if(Message.contains("Batch Changed") || Message.contains("alloted to")) {
+                  Navigator.pushAndRemoveUntil(
+                  context,MaterialPageRoute(builder: (context) => SplashScreen()),
+                  (Route<dynamic> route) => false, // Remove all previous routes
+                  );
+                }
                 else
                 {
                   Navigator.of(context).pop();
@@ -89,49 +97,47 @@ class UserData {
         Cur_Grn = "";
       }
     });
-    print("Batch of user is is ");
-    print(User_data["Batch"]);
   }
 }
 
 class Batches {
   static String Alloted_batch = "";
 
-  static set_batch(String Grn, String New_Batch) async {
+  static set_batch(String New_Batch) async {
     int Batch_count = -1;
     int Old_Batch_count = -1;
-    String name = "";
-    String Old_Batch = "";
+    String? name = UserData.User_data["name"];
+    String? Old_Batch = UserData.User_data["Batch"];
+    
     await ref.child("Counters/$New_Batch").onValue.first.then((event) {
       Batch_count = int.parse(event.snapshot.value.toString());
-    });
-    await ref.child("users/$Grn/name").onValue.first.then((event) {
-      name = event.snapshot.value.toString();
     });
     await ref.child("Counters/$Old_Batch").onValue.first.then((event) {
       Old_Batch_count = int.parse(event.snapshot.value.toString());
     });
-    await ref.child("users/$Grn/Batch").onValue.first.then((event) {
-      Old_Batch = event.snapshot.value.toString();
-    });
 
-    await ref.child("Batches/$New_Batch").set({Grn: name});
+    await ref.child("Batches/$New_Batch/${UserData.Cur_Grn}").set(name);
     await ref.child("Counters/$New_Batch").set(Batch_count + 1);
     await ref.child("Counters/$Old_Batch").set(Old_Batch_count - 1);
 
-    await ref.child("Batches/$Grn").remove().then((_) {
+    await ref.child("Batches/$Old_Batch/${UserData.Cur_Grn}").remove().then((_) {
       print("Batch Changed Successfully");
     }).catchError((error) {
       print("Failed !!: $error");
     });
 
-    await ref.child("Users/$Grn").set({"Batch": New_Batch});
+    await ref.child("users/${UserData.Cur_Grn}/Batch").set(New_Batch);
+    
   }
+  static set_admin_batch(String NewBatch) async{
 
-  static get_batches() async {
+    await ref.child("Teachers/${UserData.Cur_Grn}").set(NewBatch);
+    print("New bath now is $NewBatch");
+  }
+  static get_alloted_batch() async {
     await ref.child("Teachers/${UserData.Cur_Grn}").onValue.first.then((event) {
       Alloted_batch = event.snapshot.value.toString();
-      print(Alloted_batch);
+      print("Alloted_batch is $Alloted_batch");
     });
   }
 }

@@ -31,7 +31,7 @@ void login() async{
 
 
 // batch list for table
-// await Batches.get_batches("B1");
+// await Batches.get_alloted_batch("B1");
 // Map<String,String> batch=Batches.cur_batch;
 //   print(batch);
 
@@ -73,7 +73,7 @@ if(GRN.validateGrn(Grn_No))
               {
               UserData.role="Teacher";
               await storage.write(key: 'role', value: "Teacher");
-              await Batches.get_batches();
+              await Batches.get_alloted_batch();
               print("alloted batch is${Batches.Alloted_batch}");
               Navigator.pushAndRemoveUntil(
                 context,MaterialPageRoute(builder: (context) => Homepage_admin()),

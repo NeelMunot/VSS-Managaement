@@ -1,3 +1,4 @@
+import 'package:VSS/pages/Batches.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:VSS/pages/Calendar.dart';
@@ -49,6 +50,13 @@ class Homepage_user extends StatelessWidget {
                 );
               },
               child: const Text("Attendence")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MyBatches()),
+                );
+              },
+              child: const Text("Change My Batch")),
           ElevatedButton(
             onPressed: () {
             logout();

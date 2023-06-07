@@ -24,10 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
     String? role = await storage.read(key: 'role');
     String? grn = await storage.read(key: 'grn');
 
-    if (username != "" && password != "") {
-      
+    if (username != "" && username != null) {
+
           await UserData.checkdata(grn!);
           UserData.role=role!;
+          if(role=="Teacher"){
+          await Batches.get_alloted_batch();
+          }
           try{
                 _auth.signInWithEmailAndPassword(email: username.toString(), password: password.toString());
                 Navigator.pushReplacementNamed(context, '/home');
@@ -47,10 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 }
 
     }
-    else
-    {
-      Navigator.pushReplacementNamed(context, '/login');
-    }
+    
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override

@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.blue),
-      //home: SplashScreen(),
     routes: {
   "/": (context) => SplashScreen(),
   "/login": (context) => LoginPage(),

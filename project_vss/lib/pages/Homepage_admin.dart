@@ -1,9 +1,12 @@
+import 'package:VSS/pages/Admin_Batch.dart';
+import 'package:VSS/pages/Batches.dart';
 import 'package:VSS/pages/Login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:VSS/pages/Calendar.dart';
 import 'package:VSS/pages/mark_attendance.dart';
 import 'package:VSS/pages/profile.dart';
+import 'package:VSS/pages/Admin_Batch.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
@@ -60,6 +63,20 @@ class Homepage_admin extends StatelessWidget {
                 );
               },
               child: Text("View Attendence")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => MyBatches()),
+                );
+              },
+              child: Text("Change My Batch")),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => AdminBatches()),
+                );
+              },
+              child: Text("Switch Batch incharge")),
           ElevatedButton(
             onPressed: () {
             logout();
