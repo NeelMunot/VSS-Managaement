@@ -29,7 +29,7 @@ SafeArea(
   child: Column(
     children:[
 StreamBuilder(
-  stream: ref.child("Attendance/${UserData.User_data["Batch"]}").onValue,
+  stream: ref.child("Attendance").onValue,
   builder: (context,snapshot) {
     Total_Days=[];
     Absent_days=[];
@@ -44,7 +44,7 @@ StreamBuilder(
         if ( Total_Days.contains(DateTime.parse(date)) == false ) {
           Total_Days.add(DateTime.parse(date));
         
-          if (item.value.contains(UserData.Cur_Grn) == false & (Absent_days.contains(DateTime.parse(date)) == false) ) {
+          if (item.value.toString().contains(UserData.Cur_Grn) == false & (Absent_days.contains(DateTime.parse(date)) == false) ) {
             Absent_days.add(DateTime.parse(date));
             }
         }

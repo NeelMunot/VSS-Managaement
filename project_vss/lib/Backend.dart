@@ -149,6 +149,6 @@ class Attendance extends UserData {
   static markAttendance(String Batch, List<String> Grns) async {
     String cur_date = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
-    await ref.child("Attendance/$Batch/$cur_date").set(Grns);
+    await ref.child("Attendance/$cur_date/$Batch").set(Grns);
   }
 }
